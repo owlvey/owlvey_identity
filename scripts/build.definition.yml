@@ -1,0 +1,29 @@
+steps:
+
+- script: dotnet restore --configfile nuget/NuGet.Config 
+  displayName: Restore Dependencies
+
+- script: dotnet build -c Release
+  displayName: Build Projects
+
+- script: dotnet publish src/Owlvey.Falcon.Authority.Presentation -c Release --no-restore -o ../../artifactory
+  displayName: Package Application
+
+- script: |
+    cd src/Owlvey.Falcon.Authority.Infra.Data.SqlServer
+    dotnet ef migrations script -c PersistedGrantDbContext -o ../../artifactory/persistedgrant.sql --verbose
+    dotnet ef migrations script -c ConfigurationDbContext -o ../../artifactory/configuration.sql --verbose
+    dotnet ef migrations script -c FalconAuthDbContext -o ../../artifactory/authority.sql --verbose
+    cd  ../../
+  displayName: Get Migration Scripts
+
+- task: Docker@2
+  displayName: buildAndPush
+  inputs:
+    containerRegistry: 'Owlvey Docker Connection'
+    repository: owlvey/authority
+    Dockerfile: artifactory/Dockerfile
+    buildContext: artifactory
+    tags: |
+     $(Build.BuildId)
+     latest
