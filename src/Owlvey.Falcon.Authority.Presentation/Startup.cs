@@ -62,12 +62,12 @@ namespace Owlvey.Falcon.Authority.Presentation
 
             services.AddHealthChecks();
 
-            services.Configure<ForwardedHeadersOptions>(options =>
-            {
-                options.KnownNetworks.Clear();
-                options.KnownProxies.Clear();
-                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-            });
+            //services.Configure<ForwardedHeadersOptions>(options =>
+            //{
+            //    options.KnownNetworks.Clear();
+            //    options.KnownProxies.Clear();
+            //    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            //});
 
             services.AddMvc(options =>
             {
@@ -161,14 +161,14 @@ namespace Owlvey.Falcon.Authority.Presentation
 
         public virtual void AddMvcOptions(MvcOptions options)
         {
-            options.Filters.Add(new RequireHttpsAttribute());
+            //options.Filters.Add(new RequireHttpsAttribute());
         }
 
         public virtual void AddMiddleware(IApplicationBuilder app)
         {
             app.UseFalconLogging("/Home/Error");
 
-            app.UseForwardedHeaders();
+            //app.UseForwardedHeaders();
 
             //app.UseHttpsRedirection();
         }

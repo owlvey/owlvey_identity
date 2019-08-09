@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
+FROM microsoft/dotnet:2.2.0-aspnetcore-runtime
 COPY . /app
 RUN mkdir -p /app/data
 RUN chmod o+x /app/data
