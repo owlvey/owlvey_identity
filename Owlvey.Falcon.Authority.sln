@@ -6,6 +6,10 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{7AE7159E-D5D1-4F87-9FDA-5DF6DD6CA9D1}"
 	ProjectSection(SolutionItems) = preProject
 		scripts\build.definition.yml = scripts\build.definition.yml
+		scripts\migrations.bash = scripts\migrations.bash
+		scripts\migrations.bat = scripts\migrations.bat
+		scripts\run_server.bash = scripts\run_server.bash
+		scripts\run_server.bat = scripts\run_server.bat
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4B0AA270-5A1F-4B1B-B426-80D3721B4681}"

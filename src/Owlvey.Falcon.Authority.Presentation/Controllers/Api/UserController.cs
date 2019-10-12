@@ -23,9 +23,12 @@ namespace Owlvey.Falcon.Authority.Presentation.Controllers.Api
         }
 
         [HttpGet]
-        [Route("{userId:guid}")]
-        public async Task<IActionResult> GetUserById(Guid userId)
+        [Route("{userId}")]
+        public async Task<IActionResult> GetUserById(string userId)
         {
+            if (userId.Equals("me", StringComparison.InvariantCultureIgnoreCase)) {
+                userId = this.Request.HttpContext.User.Identity.Name;
+            }
             var userRp = await _userQueryService.GetUserById(userId.ToString());
 
             if (DomainManager.HasNotFounds())
