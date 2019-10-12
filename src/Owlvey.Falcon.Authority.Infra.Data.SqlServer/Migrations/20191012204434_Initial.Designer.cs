@@ -10,7 +10,7 @@ using Owlvey.Falcon.Authority.Infra.Data.SqlServer.Contexts;
 namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Migrations
 {
     [DbContext(typeof(FalconAuthDbContext))]
-    [Migration("20190808061939_Initial")]
+    [Migration("20191012204434_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

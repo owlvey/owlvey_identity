@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Migrations.ConfigurationDb
+namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Migrations.PersistedGrantDb
 {
     [DbContext(typeof(ConfigurationDbContext))]
     partial class ConfigurationDbContextModelSnapshot : ModelSnapshot

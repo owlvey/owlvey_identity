@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Migrations.ConfigurationDb
+namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Migrations.PersistedGrantDb
 {
-    public partial class Init : Migration
+    public partial class PersistedGrantDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

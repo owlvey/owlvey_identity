@@ -40,18 +40,32 @@ namespace Owlvey.Falcon.Authority.Infra.CrossCutting.IoC
             services.AddScoped<ICustomerQueryService, CustomerQueryService>();
 
             services.AddScoped<IIdentityService, IdentityService>();
+
+
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+            if (environment.IsDevelopment())
+            {
+                services.AddDbContext<FalconAuthDbContext>(options =>
+                    options.UseSqlite(connectionString)
+                );
+            }
+            else
+            {
+                services.AddDbContext<FalconAuthDbContext>(options =>
+                 options.UseLazyLoadingProxies()
+                        .UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                        sqlServerOptionsAction: sqlOptions =>
+                        {
+                            sqlOptions.EnableRetryOnFailure(
+                            maxRetryCount: 10,
+                            maxRetryDelay: TimeSpan.FromSeconds(30),
+                            errorNumbersToAdd: null);
+                        })
+             );
+            }
+
             
-            services.AddDbContext<FalconAuthDbContext>(options =>
-                options.UseLazyLoadingProxies()
-                       .UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                       sqlServerOptionsAction: sqlOptions =>
-                       {
-                           sqlOptions.EnableRetryOnFailure(
-                           maxRetryCount: 10,
-                           maxRetryDelay: TimeSpan.FromSeconds(30),
-                           errorNumbersToAdd: null);
-                       })
-            );
 
             services.AddIdentity<User, IdentityRole>(o =>
             {

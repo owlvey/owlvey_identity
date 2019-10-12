@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Migrations.PersistedGrantDb
+namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Migrations.ConfigurationDb
 {
     [DbContext(typeof(PersistedGrantDbContext))]
-    [Migration("20190126023137_Init")]
-    partial class Init
+    [Migration("20191012204418_ConfigurationDb")]
+    partial class ConfigurationDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
