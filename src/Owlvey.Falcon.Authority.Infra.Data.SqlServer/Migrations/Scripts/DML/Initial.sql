@@ -96,13 +96,13 @@ VALUES (@ProfileResourceId, 'up_theme')
 /*################## Roles ################## */
 
 declare @AdminRole nvarchar(50) = 'CA5723D4000444C78B8D060A4BE61F73'
-declare @BasicRole nvarchar(50) = 'AFABBA88D0524867900597CF6301F7E0'
+declare @GuestRole nvarchar(50) = 'AFABBA88D0524867900597CF6301F7E0'
 
 INSERT INTO dbo.AspNetRoles (Id, ConcurrencyStamp, Name, NormalizedName)
 VALUES (@AdminRole, '1BCE2684-6D40-40E6-8677-F359E1D129AC', 'admin', 'ADMIN')
 
 INSERT INTO dbo.AspNetRoles (Id, ConcurrencyStamp, Name, NormalizedName)
-VALUES (@BasicRole, 'BDD8F187-1B5B-41AD-9D2D-D94DB9013D52', 'basicuser', 'BASICUSER')
+VALUES (@GuestRole, 'BDD8F187-1B5B-41AD-9D2D-D94DB9013D52', 'guest', 'GUEST')
 
 /*################## Passwords Client ################## */
 
@@ -133,7 +133,7 @@ IF NOT EXISTS (SELECT 1 FROM dbo.Clients WHERE ClientId = 'B0D76E84BF394F1297CAB
 		Values (@PasswordClientId, 'role', 'admin')
 
 		INSERT INTO dbo.ClientClaims(ClientId, [Type], [Value])
-		Values (@PasswordClientId, 'role', 'basicuser')
+		Values (@PasswordClientId, 'role', 'guest')
 
 		-- Client Scopes
 
@@ -180,7 +180,7 @@ IF NOT EXISTS (SELECT 1 FROM dbo.Clients WHERE ClientId = 'CF4A9ED44148438A99919
 		Values (@ClientId, 'role', 'admin')
 
 		INSERT INTO dbo.ClientClaims(ClientId, [Type], [Value])
-		Values (@ClientId, 'role', 'basicuser')
+		Values (@ClientId, 'role', 'guest')
 
 		-- Client Scopes
 
@@ -210,4 +210,4 @@ INSERT INTO [AspNetUserRoles] (UserId, RoleId)
 VALUES (@DefaultUser, @AdminRole);
 
 INSERT INTO [AspNetUserRoles] (UserId, RoleId)
-VALUES (@DefaultUser, @BasicRole);
+VALUES (@DefaultUser, @GuestRole);

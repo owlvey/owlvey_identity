@@ -17,6 +17,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using IdentityServer4.AccessTokenValidation;
 using Owlvey.Flacon.Authority.Infra.CrossCutting.Logging.Middlewares;
+using Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed;
 
 namespace Owlvey.Falcon.Authority.Presentation
 {
@@ -112,6 +113,10 @@ namespace Owlvey.Falcon.Authority.Presentation
             app.UseIdentityServer();
 
             app.UseResponseCaching();
+
+            if (Environment.IsDevelopment()) {
+                app.InitializeDbTestData();
+            }
 
             app.UseMvc(routes =>
             {
