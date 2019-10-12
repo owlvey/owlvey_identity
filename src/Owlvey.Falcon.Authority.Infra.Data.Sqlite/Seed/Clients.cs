@@ -26,9 +26,7 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        IdentityServerConstants.StandardScopes.Email,
                         "api",
-                        "api.auth"
                     },
                     RequireConsent = false
                 }
