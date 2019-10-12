@@ -29,6 +29,18 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
                         "api",
                     },
                     RequireConsent = false
+                },
+                new Client {
+                    ClientId = "CF4A9ED44148438A99919FF285D8B48D",
+                     ClientSecrets = new List<Secret> { new Secret("0da45603-282a-4fa6-a20b-2d4c3f2a2127".Sha256()) },
+                    ClientName = "Default Client",
+                    AllowedGrantTypes = IdentityServer4.Models.GrantTypes.ClientCredentials,
+                    AllowedScopes = new List<string>
+                    {
+                        "api",
+                    },
+                    RequireClientSecret = true,
+                    RequireConsent = false
                 }
             };
         }
