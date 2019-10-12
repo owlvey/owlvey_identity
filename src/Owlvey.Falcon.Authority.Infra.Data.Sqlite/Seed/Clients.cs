@@ -21,7 +21,7 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
                     ClientId = "B0D76E84BF394F1297CABBD7337D42B9",
                      ClientSecrets = new List<Secret> { new Secret("0da45603-282a-4fa6-a20b-2d4c3f2a2127".Sha256()) },
                     ClientName = "Passwords Client",
-                    AllowedGrantTypes = IdentityServer4.Models.GrantTypes.Code,
+                    AllowedGrantTypes = IdentityServer4.Models.GrantTypes.ResourceOwnerPassword,
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
