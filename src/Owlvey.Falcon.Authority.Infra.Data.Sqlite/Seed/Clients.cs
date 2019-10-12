@@ -64,11 +64,15 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
                     Name = "api",
                     DisplayName = "api",
                     Description = "api",
-                    Scopes = new List<Scope> {
-                        new Scope("role"),
-                        new Scope("name"),
-                        new Scope("fullname"),
-                        new Scope("email"),
+                    Scopes  = new List<Scope> {
+                        new Scope("api")
+                    },
+                    UserClaims = new List<string>{
+                        "role",
+                        "name",
+                        "fullname",
+                        "givenname",
+                        "email"
                     }
                 },
                 //new ApiResource {
