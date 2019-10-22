@@ -12,7 +12,6 @@ using System.Net.Http;
 using System.Reflection;
 using Microsoft.IdentityModel.Logging;
 using Owlvey.Falcon.Authority.Infra.CrossCutting.Identity;
-using Owlvey.Falcon.Authority.Infra.Data.SqlServer.Contexts;
 using Owvley.Falcon.Authority.Domain.Models;
 using Owvley.Falcon.Authority.Domain.Core.Manager;
 using Owlvey.Falcon.Authority.Infra.Data.SqlServer.Repositories;
@@ -40,37 +39,71 @@ namespace Owlvey.Falcon.Authority.Infra.CrossCutting.IoC
             services.AddScoped<ICustomerQueryService, CustomerQueryService>();
 
             services.AddScoped<IIdentityService, IdentityService>();
-            
-            services.AddDbContext<FalconAuthDbContext>(options =>
-                options.UseLazyLoadingProxies()
-                       .UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                       sqlServerOptionsAction: sqlOptions =>
-                       {
-                           sqlOptions.EnableRetryOnFailure(
-                           maxRetryCount: 10,
-                           maxRetryDelay: TimeSpan.FromSeconds(30),
-                           errorNumbersToAdd: null);
-                       })
-            );
 
-            services.AddIdentity<User, IdentityRole>(o =>
+
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+            if (environment.IsDevelopment())
             {
-                // SignIn settings
-                // o.SignIn.RequireConfirmedEmail = true;
+                services.AddDbContext<Data.Sqlite.Contexts.FalconAuthDbContext>(options =>
+                    options.UseSqlite(connectionString)
+                );
 
-                // User settings
-                o.User.RequireUniqueEmail = true;
 
-                // Password settings
-                o.Password.RequireDigit = true;
-                o.Password.RequireLowercase = true;
-                o.Password.RequireUppercase = true;
-                o.Password.RequireNonAlphanumeric = true;
-                o.Password.RequiredLength = 8;
-            })
-            .AddEntityFrameworkStores<FalconAuthDbContext>()
-            .AddDefaultTokenProviders();
+                services.AddIdentity<User, IdentityRole>(o =>
+                {
+                    // SignIn settings
+                    // o.SignIn.RequireConfirmedEmail = true;
 
+                    // User settings
+                    o.User.RequireUniqueEmail = true;
+
+                    // Password settings
+                    o.Password.RequireDigit = true;
+                    o.Password.RequireLowercase = true;
+                    o.Password.RequireUppercase = true;
+                    o.Password.RequireNonAlphanumeric = true;
+                    o.Password.RequiredLength = 8;
+                })
+                .AddEntityFrameworkStores<Data.Sqlite.Contexts.FalconAuthDbContext>()
+                .AddDefaultTokenProviders();
+            }
+            else
+            {
+                services.AddDbContext<Data.SqlServer.Contexts.FalconAuthDbContext>(options =>
+                 options.UseLazyLoadingProxies()
+                        .UseSqlServer(connectionString,
+                        sqlServerOptionsAction: sqlOptions =>
+                        {
+                            sqlOptions.EnableRetryOnFailure(
+                            maxRetryCount: 10,
+                            maxRetryDelay: TimeSpan.FromSeconds(30),
+                            errorNumbersToAdd: null);
+                        })
+             );
+
+
+                services.AddIdentity<User, IdentityRole>(o =>
+                {
+                    // SignIn settings
+                    // o.SignIn.RequireConfirmedEmail = true;
+
+                    // User settings
+                    o.User.RequireUniqueEmail = true;
+
+                    // Password settings
+                    o.Password.RequireDigit = true;
+                    o.Password.RequireLowercase = true;
+                    o.Password.RequireUppercase = true;
+                    o.Password.RequireNonAlphanumeric = true;
+                    o.Password.RequiredLength = 8;
+                })
+                .AddEntityFrameworkStores<Data.SqlServer.Contexts.FalconAuthDbContext>()
+                .AddDefaultTokenProviders();
+            }
+
+            
+            
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = $"/Identity/Account/Login";
@@ -78,7 +111,7 @@ namespace Owlvey.Falcon.Authority.Infra.CrossCutting.IoC
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
 
-            var migrationsAssembly = typeof(FalconAuthDbContext).GetTypeInfo().Assembly.GetName().Name;
+            var migrationsAssembly = environment.IsDevelopment() ? typeof(Data.Sqlite.Contexts.FalconAuthDbContext).GetTypeInfo().Assembly.GetName().Name : typeof(Data.SqlServer.Contexts.FalconAuthDbContext).GetTypeInfo().Assembly.GetName().Name;
             services.AddIdentityServer(options =>
             {
                 options.UserInteraction.LoginUrl = "/Identity/Account/Login";
@@ -92,21 +125,46 @@ namespace Owlvey.Falcon.Authority.Infra.CrossCutting.IoC
             .AddAspNetIdentity<User>()
             .AddConfigurationStore(options =>
             {
-                options.ConfigureDbContext = builder =>
-                    builder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                        sqlServerOptionsAction: sqlOptions =>
-                        {
-                            sqlOptions.MigrationsAssembly(migrationsAssembly);
-                            sqlOptions.EnableRetryOnFailure(
-                                maxRetryCount: 10,
-                                maxRetryDelay: TimeSpan.FromSeconds(30),
-                                errorNumbersToAdd: null);
-                        });
+
+                if (environment.IsDevelopment())
+                {
+                    options.ConfigureDbContext = builder =>
+                builder.UseSqlite(connectionString,
+                    sqliteOptionsAction: sqlOptions =>
+                    {
+                        sqlOptions.MigrationsAssembly(migrationsAssembly);
+                    });
+                }
+                else {
+                    options.ConfigureDbContext = builder =>
+                   builder.UseSqlServer(connectionString,
+                       sqlServerOptionsAction: sqlOptions =>
+                       {
+                           sqlOptions.MigrationsAssembly(migrationsAssembly);
+                           sqlOptions.EnableRetryOnFailure(
+                               maxRetryCount: 10,
+                               maxRetryDelay: TimeSpan.FromSeconds(30),
+                               errorNumbersToAdd: null);
+                       });
+                }
+
+               
             })
             .AddOperationalStore(options =>
             {
-                options.ConfigureDbContext = builder =>
-                    builder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                if (environment.IsDevelopment())
+                {
+                    options.ConfigureDbContext = builder =>
+                    builder.UseSqlite(connectionString,
+                        sqliteOptionsAction: sqlOptions =>
+                        {
+                            sqlOptions.MigrationsAssembly(migrationsAssembly);
+                        });
+                }
+                else
+                {
+                    options.ConfigureDbContext = builder =>
+                    builder.UseSqlServer(connectionString,
                         sqlServerOptionsAction: sqlOptions =>
                         {
                             sqlOptions.MigrationsAssembly(migrationsAssembly);
@@ -115,6 +173,9 @@ namespace Owlvey.Falcon.Authority.Infra.CrossCutting.IoC
                                 maxRetryDelay: TimeSpan.FromSeconds(30),
                                 errorNumbersToAdd: null);
                         });
+                }
+
+                
                 // this enables automatic token cleanup. this is optional.
                 options.EnableTokenCleanup = true;
                 options.TokenCleanupInterval = 30;

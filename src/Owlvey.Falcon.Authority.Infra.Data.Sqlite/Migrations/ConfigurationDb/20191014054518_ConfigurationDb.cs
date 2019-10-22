@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Migrations.PersistedGrantDb
+namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Migrations.ConfigurationDb
 {
-    public partial class Init : Migration
+    public partial class ConfigurationDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

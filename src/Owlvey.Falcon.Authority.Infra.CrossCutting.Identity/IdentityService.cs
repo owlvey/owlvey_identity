@@ -26,7 +26,7 @@ namespace Owlvey.Falcon.Authority.Infra.CrossCutting.Identity
 
         public string GetUserName()
         {
-            return this._httpContextAccessor.HttpContext.User.FindFirst(c => c.Type == "fullname").Value;
+            return this._httpContextAccessor.HttpContext.User.FindFirst(c => c.Type == "email").Value;
         }
 
         public string GetUserEmail()

@@ -10,6 +10,11 @@ namespace Owlvey.Falcon.Authority.Presentation.Controllers
 {
     public class HomeController : Controller
     {
+        public HomeController()
+        {
+
+        }
+
         public IActionResult Index()
         {
             return Redirect("Identity/Account/Manage");

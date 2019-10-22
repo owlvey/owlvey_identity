@@ -1,9 +1,7 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Owlvey.Falcon.Authority.Infra.Data.SqlServer.Extensions;
 
-namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Migrations
+namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Migrations
 {
     public partial class Initial : Migration
     {
@@ -52,7 +50,7 @@ namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Customer",
+                name: "Customers",
                 columns: table => new
                 {
                     CustomerId = table.Column<Guid>(nullable: false),
@@ -71,7 +69,7 @@ namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Customer", x => x.CustomerId);
+                    table.PrimaryKey("PK_Customers", x => x.CustomerId);
                 });
 
             migrationBuilder.CreateTable(
@@ -79,7 +77,7 @@ namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -100,7 +98,7 @@ namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -240,7 +238,7 @@ namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CustomerMember",
+                name: "Members",
                 columns: table => new
                 {
                     CustomerMemberId = table.Column<Guid>(nullable: false),
@@ -261,15 +259,15 @@ namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CustomerMember", x => x.CustomerMemberId);
+                    table.PrimaryKey("PK_Members", x => x.CustomerMemberId);
                     table.ForeignKey(
-                        name: "FK_CustomerMember_Customer_CustomerId",
+                        name: "FK_Members_Customers_CustomerId",
                         column: x => x.CustomerId,
-                        principalTable: "Customer",
+                        principalTable: "Customers",
                         principalColumn: "CustomerId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_CustomerMember_AspNetUsers_UserId",
+                        name: "FK_Members_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -285,8 +283,7 @@ namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -312,17 +309,16 @@ namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerMember_CustomerId",
-                table: "CustomerMember",
+                name: "IX_Members_CustomerId",
+                table: "Members",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerMember_UserId",
-                table: "CustomerMember",
+                name: "IX_Members_UserId",
+                table: "Members",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -334,13 +330,6 @@ namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Migrations
                 name: "IX_UserPreference_UserId",
                 table: "UserPreference",
                 column: "UserId");
-
-            //DDL
-            migrationBuilder.SqlFile("DDL/Procedures/Initial.sql");
-
-            //DML
-            migrationBuilder.SqlFile("DML/Initial.sql");
-
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -361,7 +350,7 @@ namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CustomerMember");
+                name: "Members");
 
             migrationBuilder.DropTable(
                 name: "UserActivity");
@@ -373,7 +362,7 @@ namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Customer");
+                name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

@@ -6,6 +6,10 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{7AE7159E-D5D1-4F87-9FDA-5DF6DD6CA9D1}"
 	ProjectSection(SolutionItems) = preProject
 		scripts\build.definition.yml = scripts\build.definition.yml
+		scripts\migrations.bash = scripts\migrations.bash
+		scripts\migrations.bat = scripts\migrations.bat
+		scripts\run_server.bash = scripts\run_server.bash
+		scripts\run_server.bat = scripts\run_server.bat
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4B0AA270-5A1F-4B1B-B426-80D3721B4681}"
@@ -41,6 +45,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Owlvey.Falcon.Authority.Presentation", "src\Owlvey.Falcon.Authority.Presentation\Owlvey.Falcon.Authority.Presentation.csproj", "{E269762E-4047-4361-8DCD-DD7BE2490A61}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Owlvey.Flacon.Authority.Infra.CrossCutting.Logging", "src\Owlvey.Flacon.Authority.Infra.CrossCutting.Logging\Owlvey.Flacon.Authority.Infra.CrossCutting.Logging.csproj", "{D37DBCAD-FECB-4831-ADE3-DE8FDB0D6244}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owlvey.Falcon.Authority.Infra.Data.Sqlite", "src\Owlvey.Falcon.Authority.Infra.Data.Sqlite\Owlvey.Falcon.Authority.Infra.Data.Sqlite.csproj", "{6E116D9C-E149-4BF5-99DA-74E1E02C46A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,6 +90,10 @@ Global
 		{D37DBCAD-FECB-4831-ADE3-DE8FDB0D6244}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D37DBCAD-FECB-4831-ADE3-DE8FDB0D6244}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D37DBCAD-FECB-4831-ADE3-DE8FDB0D6244}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E116D9C-E149-4BF5-99DA-74E1E02C46A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E116D9C-E149-4BF5-99DA-74E1E02C46A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E116D9C-E149-4BF5-99DA-74E1E02C46A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E116D9C-E149-4BF5-99DA-74E1E02C46A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,6 +115,7 @@ Global
 		{CDCBF8CB-C571-41B5-AD01-9B2E0B9A40D8} = {78B52154-30CB-4756-AC83-E6ADE8D966AC}
 		{E269762E-4047-4361-8DCD-DD7BE2490A61} = {D757612C-D40B-4455-A11D-953226721B06}
 		{D37DBCAD-FECB-4831-ADE3-DE8FDB0D6244} = {149A5788-D40B-4207-BA1F-BF6DF13824AA}
+		{6E116D9C-E149-4BF5-99DA-74E1E02C46A8} = {A85C7CF7-3F2B-4492-8DCF-EA5D8B5815A8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B14BFBCC-E810-468B-AAE7-3CDB54DCE968}
