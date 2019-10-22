@@ -96,13 +96,17 @@ VALUES (@ProfileResourceId, 'up_theme')
 /*################## Roles ################## */
 
 declare @AdminRole nvarchar(50) = 'CA5723D4000444C78B8D060A4BE61F73'
-declare @BasicRole nvarchar(50) = 'AFABBA88D0524867900597CF6301F7E0'
+declare @GuestRole nvarchar(50) = 'AFABBA88D0524867900597CF6301F7E0'
+declare @IntegrationRole nvarchar(50) = '76EF07CB-0948-4B0D-B7F3-323A21B415F0'
 
 INSERT INTO dbo.AspNetRoles (Id, ConcurrencyStamp, Name, NormalizedName)
 VALUES (@AdminRole, '1BCE2684-6D40-40E6-8677-F359E1D129AC', 'admin', 'ADMIN')
 
 INSERT INTO dbo.AspNetRoles (Id, ConcurrencyStamp, Name, NormalizedName)
-VALUES (@BasicRole, 'BDD8F187-1B5B-41AD-9D2D-D94DB9013D52', 'basicuser', 'BASICUSER')
+VALUES (@GuestRole, 'BDD8F187-1B5B-41AD-9D2D-D94DB9013D52', 'guest', 'GUEST')
+
+INSERT INTO dbo.AspNetRoles (Id, ConcurrencyStamp, Name, NormalizedName)
+VALUES (@IntegrationRole, '7E4E2422-0804-4614-9EB6-D52ED1758283', 'integration', 'INTEGRATION')
 
 /*################## Passwords Client ################## */
 
@@ -133,7 +137,7 @@ IF NOT EXISTS (SELECT 1 FROM dbo.Clients WHERE ClientId = 'B0D76E84BF394F1297CAB
 		Values (@PasswordClientId, 'role', 'admin')
 
 		INSERT INTO dbo.ClientClaims(ClientId, [Type], [Value])
-		Values (@PasswordClientId, 'role', 'basicuser')
+		Values (@PasswordClientId, 'role', 'guest')
 
 		-- Client Scopes
 
@@ -192,22 +196,48 @@ IF NOT EXISTS (SELECT 1 FROM dbo.Clients WHERE ClientId = 'CF4A9ED44148438A99919
 
 	END
 
-
-DECLARE @DefaultUser UNIQUEIDENTIFIER = '5B914168-21E4-4078-AE85-77739D5375F5'
-INSERT INTO [AspNetUsers] ([Id], [AccessFailedCount], [Avatar], [ConcurrencyStamp], [Email], [EmailConfirmed], [FirstName], [LastName], [LockoutEnabled], [LockoutEnd], [NormalizedEmail], [NormalizedUserName], [PasswordHash], [PhoneNumber], [PhoneNumberConfirmed], [SecurityStamp], [TwoFactorEnabled], [UserName])
-VALUES (@DefaultUser, 0, NULL, '6b67ee9b-dfa0-4ac4-a683-91c122dd1c34', 'admin@owlvey.com', 
-		0, 'Admin', 'Support', 1, NULL, 'ADMIN@OWLVEY.COM', 'ADMIN@OWLVEY.COM', 'AQAAAAEAACcQAAAAEBliu7tojAjRkI+LwJT1SUACDrxbtXiJyWHoY3ZWxiRKZNPRBYKmVUQDcU6ZczlgoQ==', 
-		NULL, 0, 'GEYLVTSQ65FQB3XLQLGKQ4H4K56YC7MD', 0, 'admin@owlvey.com');
+INSERT INTO dbo.AspNetUsers (Id, UserName, NormalizedUserName, Email, NormalizedEmail, EmailConfirmed, PasswordHash, SecurityStamp, ConcurrencyStamp, PhoneNumber, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnd, LockoutEnabled, AccessFailedCount, FirstName, LastName, Avatar)
+VALUES ('5B914168-21E4-4078-AE85-77739D5375F5', 'admin@owlvey.com', 'ADMIN@OWLVEY.COM', 'admin@owlvey.com', 'ADMIN@OWLVEY.COM', 0, 'AQAAAAEAACcQAAAAEBliu7tojAjRkI+LwJT1SUACDrxbtXiJyWHoY3ZWxiRKZNPRBYKmVUQDcU6ZczlgoQ==', 'GEYLVTSQ65FQB3XLQLGKQ4H4K56YC7MD', '6b67ee9b-dfa0-4ac4-a683-91c122dd1c34', NULL, 0, 0, NULL, 1, 0, 'Admin', 'Admin', NULL)
 
 INSERT INTO [AspNetUserClaims] ([ClaimType], [ClaimValue], [UserId])
-VALUES ('givenname', 'Admin', @DefaultUser);
+VALUES ('givenname', 'Admin', '5B914168-21E4-4078-AE85-77739D5375F5');
 
 INSERT INTO [AspNetUserClaims] ([ClaimType], [ClaimValue], [UserId])
-VALUES ('fullname', 'Admin Support', @DefaultUser);
-
-
-INSERT INTO [AspNetUserRoles] (UserId, RoleId)
-VALUES (@DefaultUser, @AdminRole);
+VALUES ('fullname', 'Admin', '5B914168-21E4-4078-AE85-77739D5375F5');
 
 INSERT INTO [AspNetUserRoles] (UserId, RoleId)
-VALUES (@DefaultUser, @BasicRole);
+VALUES ('5B914168-21E4-4078-AE85-77739D5375F5', @AdminRole);
+
+INSERT INTO [AspNetUserRoles] (UserId, RoleId)
+VALUES ('5B914168-21E4-4078-AE85-77739D5375F5', @GuestRole);
+
+INSERT INTO [AspNetUserRoles] (UserId, RoleId)
+VALUES ('5B914168-21E4-4078-AE85-77739D5375F5', @IntegrationRole);
+
+/***/
+
+INSERT INTO dbo.AspNetUsers (Id, UserName, NormalizedUserName, Email, NormalizedEmail, EmailConfirmed, PasswordHash, SecurityStamp, ConcurrencyStamp, PhoneNumber, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnd, LockoutEnabled, AccessFailedCount, FirstName, LastName, Avatar)
+VALUES ('550de393-86d0-423e-9b20-6fcf59b9e0eb', 'guest@owlvey.com', 'GUEST@OWLVEY.COM', 'guest@owlvey.com', 'GUEST@OWLVEY.COM', 0, 'AQAAAAEAACcQAAAAEAij5QIoCBTCOnYKiuZG6S4nes2iLzfsi8hKnONKHoXoxlSozVTAV8s4c6D0yz2BXg==', '4WVZXGLTC4ZGLQ5IVTHSAT34S33KGFAA', 'c326706e-d985-4fbb-b113-0ffcde6feb2b', NULL, 0, 0, NULL, 1, 0, 'Guest', 'Guest', NULL)
+
+INSERT INTO [AspNetUserClaims] ([ClaimType], [ClaimValue], [UserId])
+VALUES ('givenname', 'Guest', '550de393-86d0-423e-9b20-6fcf59b9e0eb');
+
+INSERT INTO [AspNetUserClaims] ([ClaimType], [ClaimValue], [UserId])
+VALUES ('fullname', 'Guest', '550de393-86d0-423e-9b20-6fcf59b9e0eb');
+
+INSERT INTO [AspNetUserRoles] (UserId, RoleId)
+VALUES ('550de393-86d0-423e-9b20-6fcf59b9e0eb', @GuestRole);
+
+/***/
+
+INSERT INTO dbo.AspNetUsers (Id, UserName, NormalizedUserName, Email, NormalizedEmail, EmailConfirmed, PasswordHash, SecurityStamp, ConcurrencyStamp, PhoneNumber, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnd, LockoutEnabled, AccessFailedCount, FirstName, LastName, Avatar)
+VALUES ('514107f7-2c47-4ac8-84df-221d8da691b9', 'integration@owlvey.com', 'INTEGRATION@OWLVEY.COM', 'integration@owlvey.com', 'INTEGRATION@OWLVEY.COM', 0, 'AQAAAAEAACcQAAAAEDlYIQaCf0tos8ZeHkmnauwrVwvxMaYnbeQc0Rsq8cH5bDbWn9MDOPIdOfqsLTgCcw==', '2FSRH27RBN3V2UELGDLJQHPQGOUKYJFE', '8a7c9ac7-992a-4cfd-b88e-6eea4b73bcc7', NULL, 0, 0, NULL, 1, 0, 'Integration', 'Integration', NULL)
+
+INSERT INTO [AspNetUserClaims] ([ClaimType], [ClaimValue], [UserId])
+VALUES ('givenname', 'Integration', '514107f7-2c47-4ac8-84df-221d8da691b9');
+
+INSERT INTO [AspNetUserClaims] ([ClaimType], [ClaimValue], [UserId])
+VALUES ('fullname', 'Integration', '514107f7-2c47-4ac8-84df-221d8da691b9');
+
+INSERT INTO [AspNetUserRoles] (UserId, RoleId)
+VALUES ('514107f7-2c47-4ac8-84df-221d8da691b9', @IntegrationRole);

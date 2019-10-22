@@ -106,7 +106,7 @@ namespace Owlvey.Falcon.Authority.Presentation.Areas.Identity.Pages.Account
                     await _userManager.AddClaimAsync(user, new Claim(Preferences.Theme.ClaimName, Preferences.Theme.DefaultValue));
                     await _userManager.AddClaimAsync(user, new Claim(Preferences.Customer.ClaimName, Preferences.Customer.DefaultValue));
 
-                    await _userManager.AddToRoleAsync(user, Roles.BasicUser);
+                    await _userManager.AddToRoleAsync(user, Roles.Guest);
 
                     _logger.LogInformation("User created a new account with password.");
                     

@@ -36,7 +36,7 @@ namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Profiles
             
             var cs = principal.Claims.Where(claim => context.RequestedClaimTypes.Contains(claim.Type)).ToList();
             
-            if (principal.IsInRole(Roles.BasicUser))
+            if (principal.IsInRole(Roles.Guest))
             {
                 string upCourier = principal.Claims.First(x => x.Type.Equals("up_customer", StringComparison.InvariantCultureIgnoreCase)).Value;
                 string customerId = string.Empty;

@@ -48,7 +48,8 @@ namespace TheRoostt.Authority.Domain
         public static class Roles
         {
             public const string Admin = "admin";
-            public const string BasicUser = "basicuser";
+            public const string Guest = "guest";
+            public const string Integration = "integration";
         }
     }
 }
