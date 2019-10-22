@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Owlvey.Falcon.Authority.Infra.Data.SqlServer.Extensions;
 
 namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Migrations
 {
@@ -333,6 +334,13 @@ namespace Owlvey.Falcon.Authority.Infra.Data.SqlServer.Migrations
                 name: "IX_UserPreference_UserId",
                 table: "UserPreference",
                 column: "UserId");
+
+            //DDL
+            migrationBuilder.SqlFile("DDL/Procedures/Initial.sql");
+
+            //DML
+            migrationBuilder.SqlFile("DML/Initial.sql");
+
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
