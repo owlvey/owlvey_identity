@@ -10,6 +10,7 @@ using Owvley.Falcon.Authority.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 
 namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
@@ -56,7 +57,7 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
                 var dbContext = scope.ServiceProvider.GetRequiredService<FalconAuthDbContext>();
 
 
-                string[] roles = new string[] { "Admin", "Guest" };
+                string[] roles = new string[] { "admin", "guest", "integration" };
 
                 foreach (string role in roles)
                 {
@@ -85,7 +86,7 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
                                 Email = testUser.Email,
                                 EmailConfirmed = true,
                                 PhoneNumberConfirmed = true,
-                                SecurityStamp = Guid.NewGuid().ToString("D")
+                                SecurityStamp = Guid.NewGuid().ToString("D"),
                             };
 
                             var password = new PasswordHasher<User>();
@@ -94,7 +95,26 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
 
                             var userStore = new UserStore<User>(dbContext);
                             var result = userStore.CreateAsync(identityUser).GetAwaiter().GetResult();
-                            
+
+                            if (testUser.FirstName.Equals("admin", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                userStore.AddToRoleAsync(identityUser, "admin");
+                                userStore.AddToRoleAsync(identityUser, "guest");
+                                userStore.AddToRoleAsync(identityUser, "integration");
+                            }
+
+                            if (testUser.FirstName.Equals("guest", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                userStore.AddToRoleAsync(identityUser, "guest");
+                            }
+
+                            if (testUser.FirstName.Equals("integration", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                userStore.AddToRoleAsync(identityUser, "integration");
+                            }
+
+                            userStore.AddClaimsAsync(identityUser, new List<Claim>() { new Claim("fullname", $"{testUser.FirstName} {testUser.LastName}") });
+
                         }
                     }
                 }

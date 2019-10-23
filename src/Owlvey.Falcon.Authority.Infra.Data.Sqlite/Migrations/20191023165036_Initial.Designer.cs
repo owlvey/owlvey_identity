@@ -9,7 +9,7 @@ using Owlvey.Falcon.Authority.Infra.Data.Sqlite.Contexts;
 namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Migrations
 {
     [DbContext(typeof(FalconAuthDbContext))]
-    [Migration("20191014054528_Initial")]
+    [Migration("20191023165036_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

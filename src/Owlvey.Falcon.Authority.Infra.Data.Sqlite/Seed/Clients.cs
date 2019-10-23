@@ -32,7 +32,7 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
                 },
                 new Client {
                     ClientId = "CF4A9ED44148438A99919FF285D8B48D",
-                     ClientSecrets = new List<Secret> { new Secret("0da45603-282a-4fa6-a20b-2d4c3f2a2127".Sha256()) },
+                    ClientSecrets = new List<Secret> { new Secret("0da45603-282a-4fa6-a20b-2d4c3f2a2127".Sha256()) },
                     ClientName = "Default Client",
                     AllowedGrantTypes = IdentityServer4.Models.GrantTypes.ClientCredentials,
                     AllowedScopes = new List<string>
@@ -79,25 +79,15 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
                     Scopes  = new List<Scope> {
                         new Scope("api")
                     },
-                    UserClaims = new List<string>{
+                    UserClaims = new List<string>
+                    {
                         "role",
                         "name",
                         "fullname",
                         "givenname",
                         "email"
                     }
-                },
-                //new ApiResource {
-                //    Name = "api.auth",
-                //    DisplayName = "api.auth",
-                //    Description = "api.auth",
-                //    Scopes = new List<Scope> {
-                //        new Scope("role"),
-                //        new Scope("name"),
-                //        new Scope("fullname"),
-                //        new Scope("email"),
-                //    }
-                //}
+                }
             };
         }
     }
@@ -118,6 +108,12 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
                     FirstName = "Guest",
                     LastName = "Guest",
                     Email = "guest@owlvey.com",
+                 },
+                new User {
+                   UserName = "integration@owlvey.com",
+                    FirstName = "Integration",
+                    LastName = "Integration",
+                    Email = "integration@owlvey.com",
                  }
             };
         }
