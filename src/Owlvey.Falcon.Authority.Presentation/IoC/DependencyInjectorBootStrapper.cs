@@ -1,5 +1,4 @@
-﻿using TheRoostt.Authority.Domain.Interfaces;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -13,8 +12,6 @@ using System.Reflection;
 using Microsoft.IdentityModel.Logging;
 using Owlvey.Falcon.Authority.Infra.CrossCutting.Identity;
 using Owvley.Falcon.Authority.Domain.Models;
-using Owvley.Falcon.Authority.Domain.Core.Manager;
-using Owvley.Falcon.Authority.Domain.Interfaces;
 
 
 namespace Owlvey.Falcon.Authority.Infra.CrossCutting.IoC
@@ -202,7 +199,7 @@ namespace Owlvey.Falcon.Authority.Infra.CrossCutting.IoC
             services.AddHttpClient();
 
             // Domain
-            services.AddScoped<IDomainManagerService, DomainManagerService>();
+            //services.AddScoped<IDomainManagerService, DomainManagerService>();
             
             
 

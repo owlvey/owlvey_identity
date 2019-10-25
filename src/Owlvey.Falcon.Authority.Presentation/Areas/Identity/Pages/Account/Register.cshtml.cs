@@ -13,7 +13,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Owlvey.Falcon.Authority.Infra.Settings;
 using Owvley.Falcon.Authority.Domain.Models;
-using TheRoostt.Authority.Domain.Interfaces;
 using static TheRoostt.Authority.Domain.DomainConstants;
 
 namespace Owlvey.Falcon.Authority.Presentation.Areas.Identity.Pages.Account
@@ -23,24 +22,18 @@ namespace Owlvey.Falcon.Authority.Presentation.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
-        private readonly ILogger<RegisterModel> _logger;
-        readonly ICustomerRepository _customerRepository;
-        readonly IUserRepository _userRepository;
+        private readonly ILogger<RegisterModel> _logger;        
         readonly WebSettings _webSettings;
         
         public RegisterModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            ILogger<RegisterModel> logger,
-            ICustomerRepository customerRepository,
-            IUserRepository userRepository,
+            ILogger<RegisterModel> logger,            
             IOptions<WebSettings> webSettings)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _logger = logger;
-            _customerRepository = customerRepository;
-            _userRepository = userRepository;
+            _logger = logger;            
             _webSettings = webSettings.Value;
         }
 
@@ -86,17 +79,19 @@ namespace Owlvey.Falcon.Authority.Presentation.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
+                /*
                 var user = new User { UserName = Input.Email, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    
                     var existingUser = await _userRepository.GetUserById(user.Id);
                     existingUser.AddPreference(Preferences.DateFormat.Name, Preferences.DateFormat.DefaultValue);
                     existingUser.AddPreference(Preferences.TimeFormat.Name, Preferences.TimeFormat.DefaultValue);
                     existingUser.AddPreference(Preferences.TimeZone.Name, Preferences.TimeZone.DefaultValue);
                     existingUser.AddPreference(Preferences.Theme.Name, Preferences.Theme.DefaultValue);
-                    _userRepository.Update(existingUser);
-                    await _userRepository.SaveChanges();
+                    //_userRepository.Update(existingUser);
+                    //await _userRepository.SaveChanges();
 
                     await _userManager.AddClaimAsync(user, new Claim("givenname", Input.FirstName));
                     await _userManager.AddClaimAsync(user, new Claim("fullname", $"{Input.FirstName} {Input.LastName}"));
@@ -118,6 +113,7 @@ namespace Owlvey.Falcon.Authority.Presentation.Areas.Identity.Pages.Account
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
+                */
             }
 
             // If we got this far, something failed, redisplay form

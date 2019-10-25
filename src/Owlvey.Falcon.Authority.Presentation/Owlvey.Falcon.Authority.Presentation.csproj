@@ -59,7 +59,6 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\Owvley.Falcon.Authority.Domain.Core\Owvley.Falcon.Authority.Domain.Core.csproj" />
     <ProjectReference Include="..\Owvley.Falcon.Authority.Domain\Owvley.Falcon.Authority.Domain.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>

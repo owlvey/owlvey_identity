@@ -9,7 +9,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Owvley.Falcon.Authority.Domain.Core\Owvley.Falcon.Authority.Domain.Core.csproj" />
+    <Compile Remove="Models\UserActivity.cs" />
+    <Compile Remove="Models\UserPreference.cs" />
+    <Compile Remove="Models\CustomerMember.cs" />
+    <Compile Remove="Models\BaseEntity.cs" />
+    <Compile Remove="Models\Customer.cs" />
+    <Compile Remove="Interfaces\ICustomerMemberRepository.cs" />
+    <Compile Remove="Interfaces\ICustomerRepository.cs" />
+    <Compile Remove="Interfaces\IUserRepository.cs" />
+    <Compile Remove="Interfaces\IRepository.cs" />
+    <Compile Remove="Models\Enums\ActivityType.cs" />
+    <Compile Remove="Models\Enums\CustomerMemberRole.cs" />
   </ItemGroup>
-  
 </Project>
