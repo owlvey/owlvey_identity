@@ -48,7 +48,8 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
                         new Claim("sub", "CF4A9ED44148438A99919FF285D8B48D"),
                         new Claim("name", "Integration"),
                         new Claim("fullname", "Integration"),
-                        new Claim("role", "integration")
+                        new Claim("role", "integration"),
+                         new Claim("role", "admin")
                     }
                 }
             };
