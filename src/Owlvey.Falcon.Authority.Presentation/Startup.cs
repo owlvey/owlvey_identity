@@ -178,27 +178,4 @@ namespace Owlvey.Falcon.Authority.Presentation
             //app.UseHttpsRedirection();
         }
     }
-
-    public class TestStartup : Startup
-    {
-        public TestStartup(IConfiguration conf, IHostingEnvironment env) : base(conf, env)
-        {
-
-        }
-
-        public override void AddAuthentication(IServiceCollection services)
-        {
-
-        }
-
-        public override void AddMvcOptions(MvcOptions options)
-        {
-
-        }
-
-        public override void AddMiddleware(IApplicationBuilder app)
-        {
-
-        }
-    }
 }

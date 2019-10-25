@@ -56,7 +56,7 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
 
                 var dbContext = scope.ServiceProvider.GetRequiredService<FalconAuthDbContext>();
                 
-                string[] roles = new string[] { "admin", "guest", "integration" };
+                string[] roles = { "admin", "guest", "integration" };
 
                 foreach (string role in roles)
                 {

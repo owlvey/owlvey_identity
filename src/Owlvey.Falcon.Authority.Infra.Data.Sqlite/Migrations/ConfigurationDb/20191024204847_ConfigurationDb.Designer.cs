@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Migrations.ConfigurationDb
 {
     [DbContext(typeof(PersistedGrantDbContext))]
-    [Migration("20191023165019_ConfigurationDb")]
+    [Migration("20191024204847_ConfigurationDb")]
     partial class ConfigurationDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
