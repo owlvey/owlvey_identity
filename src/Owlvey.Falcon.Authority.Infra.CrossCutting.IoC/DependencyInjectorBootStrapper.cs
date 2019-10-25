@@ -43,67 +43,89 @@ namespace Owlvey.Falcon.Authority.Infra.CrossCutting.IoC
 
             var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-            if (environment.IsDevelopment())
+            //if (environment.IsDevelopment())
+            //{
+            //    services.AddDbContext<Data.Sqlite.Contexts.FalconAuthDbContext>(options =>
+            //        options.UseSqlite(connectionString)
+            //    );
+
+
+            //    services.AddIdentity<User, IdentityRole>(o =>
+            //    {
+            //        // SignIn settings
+            //        // o.SignIn.RequireConfirmedEmail = true;
+
+            //        // User settings
+            //        o.User.RequireUniqueEmail = true;
+
+            //        // Password settings
+            //        o.Password.RequireDigit = true;
+            //        o.Password.RequireLowercase = true;
+            //        o.Password.RequireUppercase = true;
+            //        o.Password.RequireNonAlphanumeric = true;
+            //        o.Password.RequiredLength = 8;
+            //    })
+            //    .AddEntityFrameworkStores<Data.Sqlite.Contexts.FalconAuthDbContext>()
+            //    .AddDefaultTokenProviders();
+            //}
+            //else
+            //{
+            //    services.AddDbContext<Data.SqlServer.Contexts.FalconAuthDbContext>(options =>
+            //     options.UseLazyLoadingProxies()
+            //            .UseSqlServer(connectionString,
+            //            sqlServerOptionsAction: sqlOptions =>
+            //            {
+            //                sqlOptions.EnableRetryOnFailure(
+            //                maxRetryCount: 10,
+            //                maxRetryDelay: TimeSpan.FromSeconds(30),
+            //                errorNumbersToAdd: null);
+            //            })
+            // );
+
+
+            //    services.AddIdentity<User, IdentityRole>(o =>
+            //    {
+            //        // SignIn settings
+            //        // o.SignIn.RequireConfirmedEmail = true;
+
+            //        // User settings
+            //        o.User.RequireUniqueEmail = true;
+
+            //        // Password settings
+            //        o.Password.RequireDigit = true;
+            //        o.Password.RequireLowercase = true;
+            //        o.Password.RequireUppercase = true;
+            //        o.Password.RequireNonAlphanumeric = true;
+            //        o.Password.RequiredLength = 8;
+            //    })
+            //    .AddEntityFrameworkStores<Data.SqlServer.Contexts.FalconAuthDbContext>()
+            //    .AddDefaultTokenProviders();
+            //}
+
+            services.AddDbContext<Data.Sqlite.Contexts.FalconAuthDbContext>(options =>
+                   options.UseInMemoryDatabase(connectionString)
+               );
+
+
+            services.AddIdentity<User, IdentityRole>(o =>
             {
-                services.AddDbContext<Data.Sqlite.Contexts.FalconAuthDbContext>(options =>
-                    options.UseSqlite(connectionString)
-                );
+                // SignIn settings
+                // o.SignIn.RequireConfirmedEmail = true;
+
+                // User settings
+                o.User.RequireUniqueEmail = true;
+
+                // Password settings
+                o.Password.RequireDigit = true;
+                o.Password.RequireLowercase = true;
+                o.Password.RequireUppercase = true;
+                o.Password.RequireNonAlphanumeric = true;
+                o.Password.RequiredLength = 8;
+            })
+            .AddEntityFrameworkStores<Data.Sqlite.Contexts.FalconAuthDbContext>()
+            .AddDefaultTokenProviders();
 
 
-                services.AddIdentity<User, IdentityRole>(o =>
-                {
-                    // SignIn settings
-                    // o.SignIn.RequireConfirmedEmail = true;
-
-                    // User settings
-                    o.User.RequireUniqueEmail = true;
-
-                    // Password settings
-                    o.Password.RequireDigit = true;
-                    o.Password.RequireLowercase = true;
-                    o.Password.RequireUppercase = true;
-                    o.Password.RequireNonAlphanumeric = true;
-                    o.Password.RequiredLength = 8;
-                })
-                .AddEntityFrameworkStores<Data.Sqlite.Contexts.FalconAuthDbContext>()
-                .AddDefaultTokenProviders();
-            }
-            else
-            {
-                services.AddDbContext<Data.SqlServer.Contexts.FalconAuthDbContext>(options =>
-                 options.UseLazyLoadingProxies()
-                        .UseSqlServer(connectionString,
-                        sqlServerOptionsAction: sqlOptions =>
-                        {
-                            sqlOptions.EnableRetryOnFailure(
-                            maxRetryCount: 10,
-                            maxRetryDelay: TimeSpan.FromSeconds(30),
-                            errorNumbersToAdd: null);
-                        })
-             );
-
-
-                services.AddIdentity<User, IdentityRole>(o =>
-                {
-                    // SignIn settings
-                    // o.SignIn.RequireConfirmedEmail = true;
-
-                    // User settings
-                    o.User.RequireUniqueEmail = true;
-
-                    // Password settings
-                    o.Password.RequireDigit = true;
-                    o.Password.RequireLowercase = true;
-                    o.Password.RequireUppercase = true;
-                    o.Password.RequireNonAlphanumeric = true;
-                    o.Password.RequiredLength = 8;
-                })
-                .AddEntityFrameworkStores<Data.SqlServer.Contexts.FalconAuthDbContext>()
-                .AddDefaultTokenProviders();
-            }
-
-            
-            
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = $"/Identity/Account/Login";
@@ -126,56 +148,62 @@ namespace Owlvey.Falcon.Authority.Infra.CrossCutting.IoC
             .AddConfigurationStore(options =>
             {
 
-                if (environment.IsDevelopment())
-                {
-                    options.ConfigureDbContext = builder =>
-                builder.UseSqlite(connectionString,
-                    sqliteOptionsAction: sqlOptions =>
-                    {
-                        sqlOptions.MigrationsAssembly(migrationsAssembly);
-                    });
-                }
-                else {
-                    options.ConfigureDbContext = builder =>
-                   builder.UseSqlServer(connectionString,
-                       sqlServerOptionsAction: sqlOptions =>
-                       {
-                           sqlOptions.MigrationsAssembly(migrationsAssembly);
-                           sqlOptions.EnableRetryOnFailure(
-                               maxRetryCount: 10,
-                               maxRetryDelay: TimeSpan.FromSeconds(30),
-                               errorNumbersToAdd: null);
-                       });
-                }
+                //if (environment.IsDevelopment())
+                //{
+                //    options.ConfigureDbContext = builder =>
+                //builder.UseSqlite(connectionString,
+                //    sqliteOptionsAction: sqlOptions =>
+                //    {
+                //        sqlOptions.MigrationsAssembly(migrationsAssembly);
+                //    });
+                //}
+                //else {
+                //    options.ConfigureDbContext = builder =>
+                //   builder.UseSqlServer(connectionString,
+                //       sqlServerOptionsAction: sqlOptions =>
+                //       {
+                //           sqlOptions.MigrationsAssembly(migrationsAssembly);
+                //           sqlOptions.EnableRetryOnFailure(
+                //               maxRetryCount: 10,
+                //               maxRetryDelay: TimeSpan.FromSeconds(30),
+                //               errorNumbersToAdd: null);
+                //       });
+                //}
 
-               
+                options.ConfigureDbContext = builder =>
+                builder.UseInMemoryDatabase(connectionString);
+
+
             })
             .AddOperationalStore(options =>
             {
-                if (environment.IsDevelopment())
-                {
-                    options.ConfigureDbContext = builder =>
-                    builder.UseSqlite(connectionString,
-                        sqliteOptionsAction: sqlOptions =>
-                        {
-                            sqlOptions.MigrationsAssembly(migrationsAssembly);
-                        });
-                }
-                else
-                {
-                    options.ConfigureDbContext = builder =>
-                    builder.UseSqlServer(connectionString,
-                        sqlServerOptionsAction: sqlOptions =>
-                        {
-                            sqlOptions.MigrationsAssembly(migrationsAssembly);
-                            sqlOptions.EnableRetryOnFailure(
-                                maxRetryCount: 10,
-                                maxRetryDelay: TimeSpan.FromSeconds(30),
-                                errorNumbersToAdd: null);
-                        });
-                }
+                //if (environment.IsDevelopment())
+                //{
+                //    options.ConfigureDbContext = builder =>
+                //    builder.UseSqlite(connectionString,
+                //        sqliteOptionsAction: sqlOptions =>
+                //        {
+                //            sqlOptions.MigrationsAssembly(migrationsAssembly);
+                //        });
+                //}
+                //else
+                //{
+                //    options.ConfigureDbContext = builder =>
+                //    builder.UseSqlServer(connectionString,
+                //        sqlServerOptionsAction: sqlOptions =>
+                //        {
+                //            sqlOptions.MigrationsAssembly(migrationsAssembly);
+                //            sqlOptions.EnableRetryOnFailure(
+                //                maxRetryCount: 10,
+                //                maxRetryDelay: TimeSpan.FromSeconds(30),
+                //                errorNumbersToAdd: null);
+                //        });
+                //}
 
-                
+                options.ConfigureDbContext = builder =>
+                   builder.UseInMemoryDatabase(connectionString);
+
+
                 // this enables automatic token cleanup. this is optional.
                 options.EnableTokenCleanup = true;
                 options.TokenCleanupInterval = 30;

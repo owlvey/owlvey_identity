@@ -21,9 +21,9 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
         {
             using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
-                scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>().Database.Migrate();
-                scope.ServiceProvider.GetRequiredService<FalconAuthDbContext>().Database.Migrate();
+                //scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
+                //scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>().Database.Migrate();
+                //scope.ServiceProvider.GetRequiredService<FalconAuthDbContext>().Database.Migrate();
 
                 var configurationDbContext = scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
 

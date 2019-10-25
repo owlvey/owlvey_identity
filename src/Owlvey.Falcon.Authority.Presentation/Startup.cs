@@ -114,9 +114,7 @@ namespace Owlvey.Falcon.Authority.Presentation
 
             app.UseResponseCaching();
 
-            if (Environment.IsDevelopment()) {
-                app.InitializeDbTestData();
-            }
+            app.InitializeDbTestData();
 
             app.UseMvc(routes =>
             {
