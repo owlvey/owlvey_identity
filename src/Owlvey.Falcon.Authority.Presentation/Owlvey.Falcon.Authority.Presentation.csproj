@@ -45,9 +45,7 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\Owlvey.Falcon.Authority.Infra.CrossCutting.IoC\Owlvey.Falcon.Authority.Infra.CrossCutting.IoC.csproj" />
     <ProjectReference Include="..\Owlvey.Falcon.Authority.Infra.Data.Sqlite\Owlvey.Falcon.Authority.Infra.Data.Sqlite.csproj" />
-    <ProjectReference Include="..\Owlvey.Falcon.Authority.Infra.Settings\Owlvey.Falcon.Authority.Infra.Settings.csproj" />
     <ProjectReference Include="..\Owvley.Falcon.Authority.Domain.Core\Owvley.Falcon.Authority.Domain.Core.csproj" />
   </ItemGroup>
 

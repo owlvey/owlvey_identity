@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Owvley.Flacon.Authority.Application.Interfaces;
 using System;
 using System.Security.Claims;
 
