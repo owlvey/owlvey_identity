@@ -5,6 +5,13 @@ using System.Security.Claims;
 
 namespace Owlvey.Falcon.Authority.Infra.CrossCutting.Identity
 {
+    public interface IIdentityService
+    {
+        string GetClientId();
+        string GetUserId();
+        string GetUserName();
+        string GetUserEmail();
+    }
     public class IdentityService : IIdentityService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;

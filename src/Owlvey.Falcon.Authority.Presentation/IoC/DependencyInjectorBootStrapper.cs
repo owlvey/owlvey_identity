@@ -14,11 +14,8 @@ using Microsoft.IdentityModel.Logging;
 using Owlvey.Falcon.Authority.Infra.CrossCutting.Identity;
 using Owvley.Falcon.Authority.Domain.Models;
 using Owvley.Falcon.Authority.Domain.Core.Manager;
-using Owlvey.Falcon.Authority.Infra.Data.SqlServer.Repositories;
-using Owvley.Flacon.Application.Services.Interfaces;
-using Owvley.Flacon.Application.Services;
 using Owvley.Falcon.Authority.Domain.Interfaces;
-using Owvley.Flacon.Authority.Application.Interfaces;
+
 
 namespace Owlvey.Falcon.Authority.Infra.CrossCutting.IoC
 {
@@ -28,16 +25,7 @@ namespace Owlvey.Falcon.Authority.Infra.CrossCutting.IoC
         {
             IdentityModelEventSource.ShowPII = true;
 
-            //Application
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserQueryService, UserQueryService>();
-            services.AddScoped<IUserPreferenceService, UserPreferenceService>();
-            services.AddScoped<IUserActivityService, UserActivityService>();
-            services.AddScoped<IUserActivityQueryService, UserActivityQueryService>();
-            services.AddScoped<ICustomerService, CustomerService>();
-            services.AddScoped<ICustomerMemberService, CustomerMemberService>();
-            services.AddScoped<ICustomerQueryService, CustomerQueryService>();
-
+            //Application            
             services.AddScoped<IIdentityService, IdentityService>();
 
 
@@ -133,7 +121,7 @@ namespace Owlvey.Falcon.Authority.Infra.CrossCutting.IoC
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
 
-            var migrationsAssembly = environment.IsDevelopment() ? typeof(Data.Sqlite.Contexts.FalconAuthDbContext).GetTypeInfo().Assembly.GetName().Name : typeof(Data.SqlServer.Contexts.FalconAuthDbContext).GetTypeInfo().Assembly.GetName().Name;
+            
             services.AddIdentityServer(options =>
             {
                 options.UserInteraction.LoginUrl = "/Identity/Account/Login";
@@ -216,10 +204,6 @@ namespace Owlvey.Falcon.Authority.Infra.CrossCutting.IoC
             // Domain
             services.AddScoped<IDomainManagerService, DomainManagerService>();
             
-            // Infra - Data
-            services.AddTransient<IUserRepository, UserSqlServerRepository>();
-            services.AddTransient<ICustomerRepository, CustomerSqlServerRepository>();
-            services.AddTransient<ICustomerMemberRepository, CustomerMemberSqlServerRepository>();
             
 
             //Polly Policies
