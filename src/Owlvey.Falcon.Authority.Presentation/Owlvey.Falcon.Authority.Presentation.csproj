@@ -41,12 +41,28 @@
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />
     <PackageReference Include="TimeZoneConverter" Version="3.0.0" />
 
+
+    <PackageReference Include="IdentityServer4" Version="2.3.2" />
+    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="2.3.0" />
+    <PackageReference Include="IdentityServer4.EntityFramework" Version="2.3.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.2.1" />
+
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
+
   </ItemGroup>
 
 
   <ItemGroup>
-    <ProjectReference Include="..\Owlvey.Falcon.Authority.Infra.Data.Sqlite\Owlvey.Falcon.Authority.Infra.Data.Sqlite.csproj" />
     <ProjectReference Include="..\Owvley.Falcon.Authority.Domain.Core\Owvley.Falcon.Authority.Domain.Core.csproj" />
+    <ProjectReference Include="..\Owvley.Falcon.Authority.Domain\Owvley.Falcon.Authority.Domain.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 
 
@@ -74,5 +90,8 @@
     <Folder Include="settings\" />
     <Folder Include="IoC\" />
     <Folder Include="Identity\" />
+    <Folder Include="SqlLite\" />
+    <Folder Include="SqlLite\Contexts\" />
+    <Folder Include="SqlLite\Seed\" />
   </ItemGroup>
 </Project>
