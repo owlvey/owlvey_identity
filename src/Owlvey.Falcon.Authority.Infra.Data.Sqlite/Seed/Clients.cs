@@ -40,8 +40,16 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
                     {
                         "api",
                     },
+                    
                     RequireClientSecret = true,
-                    RequireConsent = false
+                    RequireConsent = false,
+                    ClientClaimsPrefix = "",
+                    Claims = new  List<Claim>(){
+                        new Claim("sub", "CF4A9ED44148438A99919FF285D8B48D"),
+                        new Claim("name", "Integration"),
+                        new Claim("fullname", "Integration"),
+                        new Claim("role", "integration")
+                    }
                 }
             };
         }
