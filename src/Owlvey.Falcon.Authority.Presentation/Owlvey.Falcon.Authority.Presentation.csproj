@@ -22,6 +22,13 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
     <PackageReference Include="Serilog.Sinks.ElasticSearch" Version="7.1.0" />
     <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
+
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
   </ItemGroup>
 
 
@@ -29,7 +36,6 @@
     <ProjectReference Include="..\Owlvey.Falcon.Authority.Infra.CrossCutting.IoC\Owlvey.Falcon.Authority.Infra.CrossCutting.IoC.csproj" />
     <ProjectReference Include="..\Owlvey.Falcon.Authority.Infra.Data.Sqlite\Owlvey.Falcon.Authority.Infra.Data.Sqlite.csproj" />
     <ProjectReference Include="..\Owlvey.Falcon.Authority.Infra.Settings\Owlvey.Falcon.Authority.Infra.Settings.csproj" />
-    <ProjectReference Include="..\Owlvey.Flacon.Authority.Infra.CrossCutting.Logging\Owlvey.Flacon.Authority.Infra.CrossCutting.Logging.csproj" />
     <ProjectReference Include="..\Owvley.Falcon.Authority.Domain.Core\Owvley.Falcon.Authority.Domain.Core.csproj" />
     <ProjectReference Include="..\Owvley.Flacon.Authority.Application\Owvley.Flacon.Authority.Application.csproj" />
   </ItemGroup>
@@ -54,4 +60,7 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Middlewares\" />
+  </ItemGroup>
 </Project>
