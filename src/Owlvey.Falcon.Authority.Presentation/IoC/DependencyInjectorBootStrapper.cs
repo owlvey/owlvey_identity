@@ -14,6 +14,7 @@ using Owlvey.Falcon.Authority.Infra.CrossCutting.Identity;
 using Owvley.Falcon.Authority.Domain.Models;
 
 
+
 namespace Owlvey.Falcon.Authority.Infra.CrossCutting.IoC
 {
     public class DependencyInjectorBootStrapper

@@ -16,12 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4B0AA270-5A1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Presentation", "1 - Presentation", "{D757612C-D40B-4455-A11D-953226721B06}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Application", "2 - Application", "{3BE793CC-F993-44ED-9DA6-CFA8CA28D161}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Domain", "3 - Domain", "{D7A7FC42-9F1B-4D47-9AE6-4E2D239B206F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owvley.Falcon.Authority.Domain", "src\Owvley.Falcon.Authority.Domain\Owvley.Falcon.Authority.Domain.csproj", "{F9281D48-C7B1-4628-8CD8-643D1D2A415B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owlvey.Falcon.Authority.Presentation", "src\Owlvey.Falcon.Authority.Presentation\Owlvey.Falcon.Authority.Presentation.csproj", "{AA97B31B-6918-4DBE-A4D1-9B18B5D71FC2}"
 EndProject
 Global
@@ -30,10 +24,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F9281D48-C7B1-4628-8CD8-643D1D2A415B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9281D48-C7B1-4628-8CD8-643D1D2A415B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9281D48-C7B1-4628-8CD8-643D1D2A415B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9281D48-C7B1-4628-8CD8-643D1D2A415B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AA97B31B-6918-4DBE-A4D1-9B18B5D71FC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AA97B31B-6918-4DBE-A4D1-9B18B5D71FC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA97B31B-6918-4DBE-A4D1-9B18B5D71FC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -44,9 +34,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D757612C-D40B-4455-A11D-953226721B06} = {4B0AA270-5A1F-4B1B-B426-80D3721B4681}
-		{3BE793CC-F993-44ED-9DA6-CFA8CA28D161} = {4B0AA270-5A1F-4B1B-B426-80D3721B4681}
-		{D7A7FC42-9F1B-4D47-9AE6-4E2D239B206F} = {4B0AA270-5A1F-4B1B-B426-80D3721B4681}
-		{F9281D48-C7B1-4628-8CD8-643D1D2A415B} = {D7A7FC42-9F1B-4D47-9AE6-4E2D239B206F}
 		{AA97B31B-6918-4DBE-A4D1-9B18B5D71FC2} = {D757612C-D40B-4455-A11D-953226721B06}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

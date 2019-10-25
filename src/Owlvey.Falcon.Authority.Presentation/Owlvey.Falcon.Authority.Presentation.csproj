@@ -40,7 +40,7 @@
 
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />
     <PackageReference Include="TimeZoneConverter" Version="3.0.0" />
-
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.2.0" />
 
     <PackageReference Include="IdentityServer4" Version="2.3.2" />
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="2.3.0" />
@@ -55,13 +55,6 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
 
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <ProjectReference Include="..\Owvley.Falcon.Authority.Domain\Owvley.Falcon.Authority.Domain.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
   </ItemGroup>
 
 
@@ -92,5 +85,7 @@
     <Folder Include="SqlLite\" />
     <Folder Include="SqlLite\Contexts\" />
     <Folder Include="SqlLite\Seed\" />
+    <Folder Include="Domain\" />
+    <Folder Include="Domain\Models\" />
   </ItemGroup>
 </Project>
