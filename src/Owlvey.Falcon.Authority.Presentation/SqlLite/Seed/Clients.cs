@@ -110,13 +110,13 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
             return new List<User> {
                 new User {
                     UserName = "admin@owlvey.com",
-                    FirstName = "User",
+                    FirstName = "Admin",
                     LastName = "Admin",
                     Email = "admin@owlvey.com",
                 },
                 new User {
                    UserName = "guest@owlvey.com",
-                    FirstName = "User",
+                    FirstName = "Guest",
                     LastName = "Guest",
                     Email = "guest@owlvey.com",
                  },
