@@ -19,5 +19,6 @@ namespace Owlvey.Falcon.Authority.Presentation.Controllers
 
             return Redirect(returnUrl);
         }
+
     }
 }

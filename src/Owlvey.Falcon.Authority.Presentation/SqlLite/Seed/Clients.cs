@@ -28,6 +28,7 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         "api",
+                        "api.auth"
                     },
                     RequireConsent = false
                 },
@@ -109,13 +110,13 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
             return new List<User> {
                 new User {
                     UserName = "admin@owlvey.com",
-                    FirstName = "Admin",
+                    FirstName = "User",
                     LastName = "Admin",
                     Email = "admin@owlvey.com",
                 },
                 new User {
                    UserName = "guest@owlvey.com",
-                    FirstName = "Guest",
+                    FirstName = "User",
                     LastName = "Guest",
                     Email = "guest@owlvey.com",
                  },
