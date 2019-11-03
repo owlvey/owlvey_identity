@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Owlvey.Falcon.Authority.Infra.Data.Sqlite.Contexts;
 using Owvley.Falcon.Authority.Domain.Models;
@@ -17,7 +18,7 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
 {
     public static class DatabaseSeed
     {
-        public static void InitializeDbTestData(this IApplicationBuilder app)
+        public static void InitializeDbTestData(this IApplicationBuilder app, IConfiguration configuration)
         {
             using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
@@ -70,6 +71,11 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
 
                 if (!dbContext.Users.Any())
                 {
+                    var adminUserName = configuration.GetValue<string>("Authentication:User");
+                    var adminPassword = configuration.GetValue<string>("Authentication:Password");
+                    var adminEmail = configuration.GetValue<string>("Authentication:Email");
+
+                    var users = new Users(adminEmail, adminPassword, adminEmail);
 
                     foreach (var testUser in Users.Get())
                     {

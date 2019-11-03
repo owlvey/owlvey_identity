@@ -105,14 +105,22 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
 
     internal class Users
     {
-        public static List<User> Get()
+
+        private static List<User> users = new List<User>();
+
+        static Users()
         {
-            return new List<User> {
+            
+        }
+
+        public Users(string adminUserName, string adminPassword, string adminEmail)
+        {
+            users = new List<User> {
                 new User {
-                    UserName = "admin@owlvey.com",
+                    UserName = adminUserName,
                     FirstName = "Admin",
                     LastName = "Admin",
-                    Email = "admin@owlvey.com",
+                    Email = adminEmail,
                 },
                 new User {
                    UserName = "guest@owlvey.com",
@@ -127,6 +135,11 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
                     Email = "integration@owlvey.com",
                  }
             };
+        }
+
+        public static List<User> Get()
+        {
+            return users;
         }
     }
 }
