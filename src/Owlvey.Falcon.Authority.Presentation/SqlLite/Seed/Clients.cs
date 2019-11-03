@@ -10,17 +10,20 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
 {
     internal class Clients
     {
-        /// <summary>
-        /// App can access to IS
-        /// </summary>
-        /// <returns></returns>
-        public static IEnumerable<Client> Get()
+        private static List<Client> clients = new List<Client>();
+
+        static Clients()
         {
-            return new List<Client> {
+
+        }
+
+        public Clients(string webClientId, string webClientSecret, string integrationClientId, string integrationClientSecret)
+        {
+            clients = new List<Client> {
                 new Client {
-                    ClientId = "B0D76E84BF394F1297CABBD7337D42B9",
+                    ClientId = webClientId,
                     ClientSecrets = new List<Secret> {
-                        new Secret("0da45603-282a-4fa6-a20b-2d4c3f2a2127".Sha256()) },
+                        new Secret(webClientSecret.Sha256()) },
                     ClientName = "Passwords Client",
                     AllowedGrantTypes = IdentityServer4.Models.GrantTypes.ResourceOwnerPassword,
                     AllowedScopes = new List<string>
@@ -33,20 +36,20 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
                     RequireConsent = false
                 },
                 new Client {
-                    ClientId = "CF4A9ED44148438A99919FF285D8B48D",
-                    ClientSecrets = new List<Secret> { new Secret("0da45603-282a-4fa6-a20b-2d4c3f2a2127".Sha256()) },
+                    ClientId = integrationClientId,
+                    ClientSecrets = new List<Secret> { new Secret(integrationClientSecret.Sha256()) },
                     ClientName = "Default Client",
                     AllowedGrantTypes = IdentityServer4.Models.GrantTypes.ClientCredentials,
                     AllowedScopes = new List<string>
                     {
                         "api",
                     },
-                    
+
                     RequireClientSecret = true,
                     RequireConsent = false,
                     ClientClaimsPrefix = "",
                     Claims = new  List<Claim>(){
-                        new Claim("sub", "CF4A9ED44148438A99919FF285D8B48D"),
+                        new Claim("sub", integrationClientId),
                         new Claim("name", "Integration"),
                         new Claim("fullname", "Integration"),
                         new Claim("role", "integration"),
@@ -54,6 +57,15 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
                     }
                 }
             };
+        }
+
+        /// <summary>
+        /// App can access to IS
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<Client> Get()
+        {
+            return clients;
         }
     }
 

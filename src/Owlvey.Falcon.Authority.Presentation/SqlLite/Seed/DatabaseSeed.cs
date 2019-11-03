@@ -30,6 +30,13 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
 
                 if (!configurationDbContext.Clients.Any())
                 {
+                    var webClientId = configuration.GetValue<string>("Authentication:WebClientId");
+                    var webClientSecret = configuration.GetValue<string>("Authentication:WebClientSecret");
+                    var integrationClientId = configuration.GetValue<string>("Authentication:IntegrationClientId");
+                    var integrationClientSecret = configuration.GetValue<string>("Authentication:IntegrationClientSecret");
+
+                    var clients = new Clients(webClientId, webClientSecret, integrationClientId, integrationClientSecret);
+
                     foreach (var client in Clients.Get())
                     {
                         configurationDbContext.Clients.Add(client.ToEntity());
