@@ -4,8 +4,8 @@ services:
         image: "owlveylocal/authority:dev"
         environment:            
             ASPNETCORE_ENVIRONMENT: "docker"
-            Authentication__User: "admin@test.com"
+            Authentication__User: "admin@owlvey.com"
             Authentication__Password: "0wlv3y@"
-            Authentication__Email: "admin@test.com"
+            Authentication__Email: "admin@owlvey.com"
         ports:
             - "45001:80"            
