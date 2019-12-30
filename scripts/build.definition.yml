@@ -13,13 +13,17 @@ steps:
 - script: dotnet publish --no-restore -o bin/Publish
   displayName: Publish 
 
+- bash: |
+    pwd
+    ls  
+
 - task: Docker@2
-  displayName: buildAndPush
+  displayName: build publish docker
   inputs:
     containerRegistry: 'Owlvey Docker Connection'
     repository: owlvey/authority
     Dockerfile: scr/Owlvey.Falcon.Authority.Presentation/Dockerfile
-    buildContext: scr/Owlvey.Falcon.Authority.
+    buildContext: scr/Owlvey.Falcon.Authority.Presentation
     tags: |
      $(Build.BuildId)
      latest
