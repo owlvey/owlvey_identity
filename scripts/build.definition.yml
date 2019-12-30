@@ -26,8 +26,7 @@ steps:
   inputs:
     containerRegistry: 'Owlvey Docker Connection'
     repository: owlvey/authority
-    Dockerfile: scr/Owlvey.Falcon.Authority.Presentation/Dockerfile
-    buildContext: /home/vsts/work/
+    Dockerfile: scr/Owlvey.Falcon.Authority.Presentation/Dockerfile    
     tags: |
      $(Build.BuildId)
      latest
