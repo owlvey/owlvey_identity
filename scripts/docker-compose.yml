@@ -1,0 +1,11 @@
+version: "3"
+services:    
+    authority:
+        image: "owlveylocal/authority:dev"
+        environment:            
+            ASPNETCORE_ENVIRONMENT: "docker"
+            Authentication__User: "admin@test.com"
+            Authentication__Password: "0wlv3y@"
+            Authentication__Email: "admin@test.com"
+        ports:
+            - "45001:80"            

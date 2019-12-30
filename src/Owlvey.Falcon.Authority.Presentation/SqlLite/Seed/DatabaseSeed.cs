@@ -81,7 +81,7 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
                     var adminUserName = configuration.GetValue<string>("Authentication:User");
                     var adminPassword = configuration.GetValue<string>("Authentication:Password");
                     var adminEmail = configuration.GetValue<string>("Authentication:Email");
-
+                    
                     var users = new Users(adminEmail, adminPassword, adminEmail);
 
                     foreach (var testUser in Users.Get())
@@ -101,9 +101,18 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
                                 SecurityStamp = Guid.NewGuid().ToString("D"),
                             };
 
-                            var password = new PasswordHasher<User>();
-                            var hashed = password.HashPassword(identityUser, "P@$$w0rd");
-                            identityUser.PasswordHash = hashed;
+                            if (identityUser.Email == adminEmail)
+                            {
+                                var password = new PasswordHasher<User>();
+                                var hashed = password.HashPassword(identityUser, adminPassword);
+                                identityUser.PasswordHash = hashed;
+                            }
+                            else {
+                                var password = new PasswordHasher<User>();
+                                var hashed = password.HashPassword(identityUser, "P@$$w0rd");
+                                identityUser.PasswordHash = hashed;
+                            }
+                            
 
                             var userStore = new UserStore<User>(dbContext);
                             var result = userStore.CreateAsync(identityUser).GetAwaiter().GetResult();

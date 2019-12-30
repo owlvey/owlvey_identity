@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.329
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{7AE7159E-D5D1-4F87-9FDA-5DF6DD6CA9D1}"
 	ProjectSection(SolutionItems) = preProject
 		scripts\build.definition.yml = scripts\build.definition.yml
+		scripts\build_compose.bat = scripts\build_compose.bat
+		scripts\docker-compose.yml = scripts\docker-compose.yml
 		scripts\migrations.bash = scripts\migrations.bash
 		scripts\migrations.bat = scripts\migrations.bat
 		scripts\run_server.bash = scripts\run_server.bash
@@ -16,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4B0AA270-5A1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Presentation", "1 - Presentation", "{D757612C-D40B-4455-A11D-953226721B06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owlvey.Falcon.Authority.Presentation", "src\Owlvey.Falcon.Authority.Presentation\Owlvey.Falcon.Authority.Presentation.csproj", "{AA97B31B-6918-4DBE-A4D1-9B18B5D71FC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Owlvey.Falcon.Authority.Presentation", "src\Owlvey.Falcon.Authority.Presentation\Owlvey.Falcon.Authority.Presentation.csproj", "{AA97B31B-6918-4DBE-A4D1-9B18B5D71FC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
