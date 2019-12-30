@@ -10,7 +10,7 @@ steps:
 - script: dotnet restore 
   displayName: Restore Dependencies
 
-- script: dotnet publish --no-restore -o bin/Publish
+- script: dotnet publish src/Owlvey.Falcon.Authority.Presentation/Owlvey.Falcon.Authority.Presentation.csproj --no-restore -o src/Owlvey.Falcon.Authority.Presentation/bin/Publish
   displayName: Publish 
 
 - bash: |
@@ -26,7 +26,8 @@ steps:
   inputs:
     containerRegistry: 'Owlvey Docker Connection'
     repository: owlvey/authority
-    Dockerfile: scr/Owlvey.Falcon.Authority.Presentation/Dockerfile    
+    Dockerfile: scr/Owlvey.Falcon.Authority.Presentation/Dockerfile
+    buildContext: scr/Owlvey.Falcon.Authority.Presentation/bin/Publish
     tags: |
      $(Build.BuildId)
      latest
