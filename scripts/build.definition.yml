@@ -18,8 +18,8 @@ steps:
   inputs:
     containerRegistry: 'Owlvey Docker Connection'
     repository: owlvey/authority
-    Dockerfile: artifactory/Dockerfile
-    buildContext: artifactory
+    Dockerfile: scr/Owlvey.Falcon.Authority.Presentation/Dockerfile
+    buildContext: scr/Owlvey.Falcon.Authority.
     tags: |
      $(Build.BuildId)
      latest
