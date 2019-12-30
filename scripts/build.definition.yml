@@ -18,14 +18,18 @@ steps:
 
 - bash: |
     pwd    
-    ls /home/vsts/work/artifactory/
+    ls /home/vsts/work/artifactory/    
+
+- bash: |
+    pwd        
+    ls /home/vsts/work/artifactory/bin/Publish
 
 - task: Docker@2
   displayName: build publish docker
   inputs:
     containerRegistry: 'Owlvey Docker Connection'
     repository: owlvey/authority
-    Dockerfile: Dockerfile
+    Dockerfile: /home/vsts/work/artifactory/Dockerfile
     buildContext: /home/vsts/work/artifactory
     tags: |
      $(Build.BuildId)
