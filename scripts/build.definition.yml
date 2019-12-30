@@ -16,8 +16,8 @@ steps:
 - bash: |
     pwd
     ls  
-    ls /src/Owlvey.Falcon.Authority.Presentation
-    ls /src/
+    ls src/Owlvey.Falcon.Authority.Presentation
+    
 
 - task: Docker@2
   displayName: build publish docker
