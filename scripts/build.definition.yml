@@ -14,9 +14,11 @@ steps:
   displayName: Publish 
 
 - bash: |
-    pwd
-    ls  
+    pwd    
     ls src/Owlvey.Falcon.Authority.Presentation
+
+- bash: |        
+    ls /home/vsts/work/
     
 
 - task: Docker@2
@@ -25,7 +27,7 @@ steps:
     containerRegistry: 'Owlvey Docker Connection'
     repository: owlvey/authority
     Dockerfile: scr/Owlvey.Falcon.Authority.Presentation/Dockerfile
-    buildContext: scr/Owlvey.Falcon.Authority.Presentation/
+    buildContext: /home/vsts/work/
     tags: |
      $(Build.BuildId)
      latest
