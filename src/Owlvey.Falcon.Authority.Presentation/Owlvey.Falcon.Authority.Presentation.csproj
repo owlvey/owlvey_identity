@@ -1,60 +1,58 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>aspnet-Owlvey.Falcon.Authority.Presentation-67948436-EA02-4C5C-8AF4-EB3454E39100</UserSecretsId>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="8.0.0" />
-    <PackageReference Include="BuildBundlerMinifier" Version="2.9.406" />
-    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="2.7.0" />
-    <PackageReference Include="Microsoft.AspNetCore.App">
-      <PrivateAssets Condition="'%(PackageReference.Version)' == ''">all</PrivateAssets>
-      <Publish Condition="'%(PackageReference.Version)' == ''">true</Publish>
-    </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
-    <PackageReference Include="Serilog" Version="2.8.0" />
-    <PackageReference Include="Serilog.AspNetCore" Version="2.1.1" />
-    <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.4" />
-    <PackageReference Include="Serilog.Settings.Configuration" Version="3.0.1" />
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.435" />
+    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />        
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
+    <PackageReference Include="Serilog" Version="2.9.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
-    <PackageReference Include="Serilog.Sinks.ElasticSearch" Version="7.1.0" />
+    <PackageReference Include="Serilog.Sinks.ElasticSearch" Version="8.0.1" />
     <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
 
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.0" />
 
 
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="2.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.2.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.0" />
 
 
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />
-    <PackageReference Include="TimeZoneConverter" Version="3.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="TimeZoneConverter" Version="3.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="3.1.0" />
 
-    <PackageReference Include="IdentityServer4" Version="2.3.2" />
-    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="2.3.0" />
-    <PackageReference Include="IdentityServer4.EntityFramework" Version="2.3.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.2.1" />
+    <PackageReference Include="IdentityServer4" Version="3.1.0" />
+    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="3.1.0" />
+    <PackageReference Include="IdentityServer4.EntityFramework" Version="3.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.0" />
 
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.0" />
 
   </ItemGroup>
 

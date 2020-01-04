@@ -81,9 +81,15 @@ namespace Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed
                     var adminUserName = configuration.GetValue<string>("Authentication:User");
                     var adminPassword = configuration.GetValue<string>("Authentication:Password");
                     var adminEmail = configuration.GetValue<string>("Authentication:Email");
-                    
-                    var users = new Users(adminEmail, adminPassword, adminEmail);
 
+                    if (string.IsNullOrWhiteSpace(adminPassword)) {
+                        adminPassword = "P@$$w0rd";
+                    }
+
+                    var users = new Users(adminEmail, adminPassword, adminEmail);
+                    Console.WriteLine("==========================");
+                    Console.WriteLine(adminUserName);
+                    Console.WriteLine(adminPassword);
                     foreach (var testUser in Users.Get())
                     {
                         if (!dbContext.Users.Any(c => c.UserName.Equals(testUser.UserName))) {

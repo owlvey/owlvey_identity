@@ -72,6 +72,7 @@ namespace Owlvey.Falcon.Authority.Presentation
 
             services.AddMvc(options =>
             {
+                options.EnableEndpointRouting = false;
                 options.CacheProfiles.Add("Default60", new CacheProfile()
                 {
                     Duration = 60
@@ -82,16 +83,19 @@ namespace Owlvey.Falcon.Authority.Presentation
                 //Https Filter
                 AddMvcOptions(options);
 
-            }).AddJsonOptions(
-                options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            )
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            })
+            .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
             .AddRazorPagesOptions(options =>
-            {
-                options.AllowAreas = true;
+            {                
                 options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
                 options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
             });
+
+            /*
+             * .AddJsonOptions(
+                //options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            )
+             */
 
             AddAuthentication(services);
 
