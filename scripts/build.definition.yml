@@ -29,7 +29,7 @@ stages:
     - script: dotnet build -c Release
       displayName: Build Solution
 
-    - script: dotnet publish src/Owlvey.Falcon.Authority.Presentation/Owlvey.Falcon.Authority.Presentation.csproj --no-restore 
+    - script: dotnet publish src/Owlvey.Falcon.Authority.Presentation/Owlvey.Falcon.Authority.Presentation.csproj --no-restore  -c Release
       displayName: Publish 
 
     - task: ArchiveFiles@2
