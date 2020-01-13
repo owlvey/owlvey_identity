@@ -81,26 +81,31 @@ stages:
 - stage: ReleaseStageAzure
   displayName:  Release Stage Azure
   jobs:  
-  - job: Deploy
-    displayName: Deploy
+  - deployment: DeployWeb
+    displayName: deploy Web App
     pool:
-      vmImage: 'windows-2019'
-    steps:
-    - download: current
-      artifact: IdentityWeb
+      vmImage: 'Ubuntu-18.04'  
+    environment: 'azure-prod'
+    strategy:    
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: IdentityWeb
 
-    - bash: |
-        pwd    
-        ls -a
-        ls '$(System.DefaultWorkingDirectory)'        
+          - bash: |
+              pwd    
+              ls -a
+              ls '$(System.DefaultWorkingDirectory)'        
 
-    - task: AzureWebApp@1
-      inputs:
-        azureSubscription: 'azurecon'
-        appName: 'owlvey-falcon-prod-identity'
-        package: '$(Pipeline.Workspace)/IdentityWeb/Identity.zip'
-        deploymentMethod: zipDeploy
-        appSettings: -ASPNETCORE_ENVIRONMENT Azure
+          - task: AzureWebApp@1
+            inputs:
+              azureSubscription: 'azurecon'
+              appName: 'owlvey-falcon-prod-identity'
+              package: '$(Pipeline.Workspace)/IdentityWeb/Identity.zip'
+              deploymentMethod: zipDeploy
+              appSettings: -ASPNETCORE_ENVIRONMENT Azure
+
 
 - stage: ReleaseStageDocker
   displayName:  Release Stage Docker
