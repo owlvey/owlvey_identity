@@ -90,7 +90,8 @@ stages:
         echo '$(Build.ArtifactStagingDirectory)'        
         echo '$(Build.BinariesDirectory)'        
         echo '$(Build.SourcesDirectory)'        
-        echo '$(Build.StagingDirectory)'               
+        echo '$(System.DefaultWorkingDirectory)'        
+        echo '$(Pipeline.Workspace)'        
 
 
 - stage: ReleaseStageAzure
@@ -107,7 +108,4 @@ stages:
     - bash: |
         pwd    
         ls -a
-        ls '$(Build.ArtifactStagingDirectory)'        
-
-   
-      
+        ls '$(System.DefaultWorkingDirectory)'        
