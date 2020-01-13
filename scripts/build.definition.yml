@@ -2,8 +2,8 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
-- stage: Build
-  displayName:  Build
+- stage: Commit
+  displayName:  Commit Stage
   jobs:  
   - job: Build
     displayName: Build
@@ -59,7 +59,7 @@ stages:
 
     - task: PublishBuildArtifacts@1
       inputs:
-        pathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)/Identity.zip'
         artifactName: IdentityWeb        
 
     - task: Docker@2
@@ -88,6 +88,4 @@ stages:
     - bash: |
         pwd    
         ls -a
-
-    
-      
+        ls '$(Build.ArtifactStagingDirectory)'        
