@@ -45,7 +45,7 @@ stages:
  
     - task: ExtractFiles@1
       inputs:
-        archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/Identity.zip'
         destinationFolder: '$(Build.ArtifactStagingDirectory)/bin/Publish'
         cleanDestinationFolder: true     
 
@@ -89,3 +89,14 @@ stages:
         pwd    
         ls -a
         ls '$(Build.ArtifactStagingDirectory)'        
+
+    - task: AzureRmWebAppDeployment@4
+      displayName: 'Deploy Azure App Service'
+      inputs:
+        azureSubscription: 'azurecon'
+        WebAppName: 'owlvey-falcon-prod-identity'
+        packageForLinux: '$(Build.ArtifactStagingDirectory)/Identity.zip'
+        enableCustomDeployment: true
+        ExcludeFilesFromAppDataFlag: false
+        AppSettings: -ASPNETCORE_ENVIRONMENT Azure
+      
