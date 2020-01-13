@@ -40,38 +40,10 @@ stages:
         archiveFile: '$(Build.ArtifactStagingDirectory)/Identity.zip'
         replaceExistingArchive: true
 
-    - bash: |
-        cp src/Owlvey.Falcon.Authority.Presentation/Dockerfile  '$(Build.ArtifactStagingDirectory)/Dockerfile'   
- 
-    - task: ExtractFiles@1
-      inputs:
-        archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/Identity.zip'
-        destinationFolder: '$(Build.ArtifactStagingDirectory)/bin/Publish'
-        cleanDestinationFolder: true     
-
-    - bash: |
-        pwd    
-        ls '$(Build.ArtifactStagingDirectory)'
-
-    - bash: |
-        pwd        
-        ls '$(Build.ArtifactStagingDirectory)/bin/Publish'        
-
     - task: PublishBuildArtifacts@1
       inputs:
         pathtoPublish: '$(Build.ArtifactStagingDirectory)/Identity.zip'
         artifactName: IdentityWeb        
-
-    - task: Docker@2
-      displayName: build publish docker
-      inputs:
-        containerRegistry: 'Owlvey Docker Connection'
-        repository: owlvey/authority
-        Dockerfile: '$(Build.ArtifactStagingDirectory)/Dockerfile'
-        buildContext: '$(Build.ArtifactStagingDirectory)'
-        tags: |
-         $(Build.BuildId)
-         latest
 
 
 - stage: VirtualizationStage
@@ -93,6 +65,16 @@ stages:
         echo '$(System.DefaultWorkingDirectory)'        
         echo '$(Pipeline.Workspace)'        
 
+- stage: AutomationStage
+  displayName:  Automation Stage 
+  jobs:  
+  - job: AutomateTesting
+    displayName: Testing
+    pool:
+      vmImage: 'ubuntu-18.04'
+    steps:
+    - download: current
+      artifact: IdentityWeb    
 
 - stage: ReleaseStageAzure
   displayName:  Release Stage Azure
@@ -109,3 +91,45 @@ stages:
         pwd    
         ls -a
         ls '$(System.DefaultWorkingDirectory)'        
+
+    - task: AzureRmWebAppDeployment@4
+      displayName: 'Deploy Azure App Service'
+      inputs:
+        azureSubscription: 'azurecon'
+        WebAppName: 'owlvey-falcon-prod-identity'
+        packageForLinux: '$(Pipeline.Workspace)/IdentityWeb/Identity.zip'
+        enableCustomDeployment: true
+        ExcludeFilesFromAppDataFlag: false
+        AppSettings: -ASPNETCORE_ENVIRONMENT Azure
+
+- stage: ReleaseStageDocker
+  displayName:  Release Stage Docker
+  jobs:  
+  - job: Deploy
+    displayName: Deploy
+    pool:
+      vmImage: 'ubuntu-18.04'
+    steps:
+    - checkout: self      
+    - download: current
+      artifact: IdentityWeb
+
+    - bash: |
+        cp src/Owlvey.Falcon.Authority.Presentation/Dockerfile  '$(Build.ArtifactStagingDirectory)/Dockerfile'   
+ 
+    - task: ExtractFiles@1
+      inputs:
+        archiveFilePatterns: '$(Pipeline.Workspace)/IdentityWeb/Identity.zip'
+        destinationFolder: '$(Build.ArtifactStagingDirectory)/bin/Publish'
+        cleanDestinationFolder: true 
+
+    - task: Docker@2
+      displayName: build publish docker
+      inputs:
+        containerRegistry: 'Owlvey Docker Connection'
+        repository: owlvey/authority
+        Dockerfile: '$(Build.ArtifactStagingDirectory)/Dockerfile'
+        buildContext: '$(Build.ArtifactStagingDirectory)'
+        tags: |
+         $(Build.BuildId)
+         latest
