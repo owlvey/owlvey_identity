@@ -1,36 +1,72 @@
-steps:
+variables:
+  tag: '$(Build.BuildId)'
 
-- task: UseDotNet@2
-  displayName: 'Use .NET Core sdk'
-  inputs:
-    packageType: sdk
-    version: 3.x
-    installationPath: $(Agent.ToolsDirectory)/dotnet
+stages:
+- stage: Build
+  displayName:  Build
+  jobs:  
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: 'ubuntu-18.04'
+    steps:
+    - checkout: self        
+    - bash: |
+        pwd
+        ls -a
+        echo $(Build.BuildId)
+      displayName: list folders   
+    - task: UseDotNet@2
+      displayName: 'Use .NET Core sdk'
+      inputs:
+        packageType: sdk
+        version: 3.x
+        installationPath: $(Agent.ToolsDirectory)/dotnet
 
-- script: dotnet restore 
-  displayName: Restore Dependencies
+    - script: dotnet restore 
+      displayName: Restore Dependencies
 
-- script: dotnet publish src/Owlvey.Falcon.Authority.Presentation/Owlvey.Falcon.Authority.Presentation.csproj --no-restore -o /home/vsts/work/artifactory/bin/Publish
-  displayName: Publish 
+    - script: dotnet build -c Release
+      displayName: Build Solution
 
-- bash: |
-    cp src/Owlvey.Falcon.Authority.Presentation/Dockerfile  /home/vsts/work/artifactory/Dockerfile   
+    - script: dotnet publish src/Owlvey.Falcon.Authority.Presentation/Owlvey.Falcon.Authority.Presentation.csproj --no-restore 
+      displayName: Publish 
 
-- bash: |
-    pwd    
-    ls /home/vsts/work/artifactory/    
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: '$(Build.SourcesDirectory)/src/Owlvey.Falcon.Authority.Presentation/bin/Release/netcoreapp3.1/publish'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        replaceExistingArchive: true
 
-- bash: |
-    pwd        
-    ls /home/vsts/work/artifactory/bin/Publish
+    - bash: |
+      cp src/Owlvey.Falcon.Authority.Presentation/Dockerfile  '$(Build.ArtifactStagingDirectory)/Dockerfile'   
 
-- task: Docker@2
-  displayName: build publish docker
-  inputs:
-    containerRegistry: 'Owlvey Docker Connection'
-    repository: owlvey/authority
-    Dockerfile: /home/vsts/work/artifactory/Dockerfile
-    buildContext: /home/vsts/work/artifactory
-    tags: |
-     $(Build.BuildId)
-     latest
+    - task: ExtractFiles@1
+      inputs:
+        archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        destinationFolder: '$(Build.ArtifactStagingDirectory)/bin/Publish'
+        cleanDestinationFolder: true     
+
+
+    - bash: |
+      pwd    
+      ls '$(Build.ArtifactStagingDirectory)'
+
+    - bash: |
+      pwd        
+      ls '$(Build.ArtifactStagingDirectory)/bin/Publish'
+            
+
+    - task: Docker@2
+      displayName: build publish docker
+      inputs:
+        containerRegistry: 'Owlvey Docker Connection'
+        repository: owlvey/authority
+        Dockerfile: '$(Build.ArtifactStagingDirectory)/Dockerfile'
+        buildContext: '$(Build.ArtifactStagingDirectory)'
+        tags: |
+         $(Build.BuildId)
+         latest
+
