@@ -37,7 +37,7 @@ stages:
         rootFolderOrFile: '$(Build.SourcesDirectory)/src/Owlvey.Falcon.Authority.Presentation/bin/Release/netcoreapp3.1/publish'
         includeRootFolder: false
         archiveType: 'zip'
-        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/Identity.zip'
         replaceExistingArchive: true
 
     - bash: |
@@ -90,13 +90,4 @@ stages:
         ls -a
         ls '$(Build.ArtifactStagingDirectory)'        
 
-    - task: AzureRmWebAppDeployment@4
-      displayName: 'Deploy Azure App Service'
-      inputs:
-        azureSubscription: 'azurecon'
-        WebAppName: 'owlvey-falcon-prod-identity'
-        packageForLinux: '$(Build.ArtifactStagingDirectory)/Identity.zip'
-        enableCustomDeployment: true
-        ExcludeFilesFromAppDataFlag: false
-        AppSettings: -ASPNETCORE_ENVIRONMENT Azure
-      
+ 
