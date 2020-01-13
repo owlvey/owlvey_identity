@@ -73,8 +73,28 @@ stages:
          $(Build.BuildId)
          latest
 
-- stage: DeployAzure
-  displayName:  Deploy Azure
+
+- stage: VirtualizationStage
+  displayName:  Virtualization Testing Stage 
+  jobs:  
+  - job: VirtualTesting
+    displayName: Testing
+    pool:
+      vmImage: 'ubuntu-18.04'
+    steps:
+    - download: current
+      artifact: IdentityWeb
+    - bash: |
+        pwd    
+        ls -a
+        echo '$(Build.ArtifactStagingDirectory)'        
+        echo '$(Build.BinariesDirectory)'        
+        echo '$(Build.SourcesDirectory)'        
+        echo '$(Build.StagingDirectory)'               
+
+
+- stage: ReleaseStageAzure
+  displayName:  Release Stage Azure
   jobs:  
   - job: Deploy
     displayName: Deploy
@@ -89,4 +109,5 @@ stages:
         ls -a
         ls '$(Build.ArtifactStagingDirectory)'        
 
-    
+   
+      
