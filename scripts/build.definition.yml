@@ -65,6 +65,7 @@ stages:
         echo '$(System.DefaultWorkingDirectory)'        
         echo '$(Pipeline.Workspace)'        
 
+
 - stage: AutomationStage
   displayName:  Automation Stage 
   jobs:  
@@ -75,6 +76,7 @@ stages:
     steps:
     - download: current
       artifact: IdentityWeb    
+
 
 - stage: ReleaseStageAzure
   displayName:  Release Stage Azure
@@ -92,15 +94,13 @@ stages:
         ls -a
         ls '$(System.DefaultWorkingDirectory)'        
 
-    - task: AzureRmWebAppDeployment@4
-      displayName: 'Deploy Azure App Service'
+    - task: AzureWebApp@1
       inputs:
         azureSubscription: 'azurecon'
-        WebAppName: 'owlvey-falcon-prod-identity'
-        packageForLinux: '$(Pipeline.Workspace)/IdentityWeb/Identity.zip'
-        enableCustomDeployment: true
-        ExcludeFilesFromAppDataFlag: false
-        AppSettings: -ASPNETCORE_ENVIRONMENT Azure
+        appName: 'owlvey-falcon-prod-identity'
+        package: '$(Pipeline.Workspace)/IdentityWeb/Identity.zip'
+        deploymentMethod: zipDeploy
+        appSettings: -ASPNETCORE_ENVIRONMENT Azure
 
 - stage: ReleaseStageDocker
   displayName:  Release Stage Docker
