@@ -41,7 +41,7 @@ stages:
         replaceExistingArchive: true
 
     - bash: |
-      cp src/Owlvey.Falcon.Authority.Presentation/Dockerfile  '$(Build.ArtifactStagingDirectory)/Dockerfile'   
+        cp src/Owlvey.Falcon.Authority.Presentation/Dockerfile  '$(Build.ArtifactStagingDirectory)/Dockerfile'   
  
     - task: ExtractFiles@1
       inputs:
@@ -49,15 +49,13 @@ stages:
         destinationFolder: '$(Build.ArtifactStagingDirectory)/bin/Publish'
         cleanDestinationFolder: true     
 
+    - bash: |
+        pwd    
+        ls '$(Build.ArtifactStagingDirectory)'
 
     - bash: |
-      pwd    
-      ls '$(Build.ArtifactStagingDirectory)'
-
-    - bash: |
-      pwd        
-      ls '$(Build.ArtifactStagingDirectory)/bin/Publish'
-            
+        pwd        
+        ls '$(Build.ArtifactStagingDirectory)/bin/Publish'        
 
     - task: Docker@2
       displayName: build publish docker
