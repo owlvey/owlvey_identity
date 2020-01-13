@@ -42,7 +42,7 @@ stages:
 
     - bash: |
       cp src/Owlvey.Falcon.Authority.Presentation/Dockerfile  '$(Build.ArtifactStagingDirectory)/Dockerfile'   
-
+ 
     - task: ExtractFiles@1
       inputs:
         archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
