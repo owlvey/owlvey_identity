@@ -81,7 +81,6 @@ stages:
     pool:
       vmImage: 'windows-2019'
     steps:
-    - checkout: self  
     - download: current
       artifact: IdentityWeb
 
@@ -90,4 +89,4 @@ stages:
         ls -a
         ls '$(Build.ArtifactStagingDirectory)'        
 
- 
+    
