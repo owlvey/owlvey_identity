@@ -18,11 +18,33 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using IdentityServer4.AccessTokenValidation;
 using Owlvey.Flacon.Authority.Infra.CrossCutting.Logging.Middlewares;
 using Owlvey.Falcon.Authority.Infra.Data.Sqlite.Seed;
+using System.Text;
+using System;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Owlvey.Falcon.Authority.Presentation
 {
     public class Startup
     {
+        public IHostingEnvironment Environment { get; }
+        public IConfiguration Configuration { get; }
+        public static void LogRequestHeaders(IApplicationBuilder app, 
+            ILoggerFactory loggerFactory)
+        {
+            var logger = loggerFactory.CreateLogger("app.headers");
+            app.Use(async (context, next) =>
+            {
+                
+                var builder = new StringBuilder("\n");
+                foreach (var header in context.Request.Headers)
+                {
+                    builder.AppendLine($"{header.Key}:{header.Value}");
+                }
+                logger.LogWarning(builder.ToString());                
+                await next.Invoke();
+            });
+        }
         public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             var builder = new ConfigurationBuilder()
@@ -40,8 +62,7 @@ namespace Owlvey.Falcon.Authority.Presentation
             Environment = environment;
         }
 
-        public IHostingEnvironment Environment { get; }
-        public IConfiguration Configuration { get; }
+        
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -106,9 +127,21 @@ namespace Owlvey.Falcon.Authority.Presentation
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseHealthChecks("/hc");
 
-            AddMiddleware(app);
+            LogRequestHeaders(app, app.ApplicationServices.GetService<ILoggerFactory>());
+            app.UseSerilogRequestLogging(options =>
+            {                
+                // Attach additional properties to the request completion event
+                options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
+                {
+                    diagnosticContext.Set("RequestHost", httpContext.Request.Host.Value);
+                    diagnosticContext.Set("RequestScheme", httpContext.Request.Scheme);
+                };
+            });
+
+            app.UseHealthChecks("/hc");
+                        
+            app.UseFalconLogging("/Home/Error");
 
             app.UseCors(o => o.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
@@ -173,7 +206,7 @@ namespace Owlvey.Falcon.Authority.Presentation
 
         public virtual void AddMiddleware(IApplicationBuilder app)
         {
-            app.UseFalconLogging("/Home/Error");
+            
 
             //app.UseForwardedHeaders();
 

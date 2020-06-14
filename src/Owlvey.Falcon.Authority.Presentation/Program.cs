@@ -7,19 +7,52 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Owlvey.Falcon.Authority.Presentation
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static int Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
-        }
+            Console.WriteLine(Environment.CurrentDirectory);
+            Console.WriteLine(AppDomain.CurrentDomain.BaseDirectory);
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
-        {
-            return WebHost.CreateDefaultBuilder(args).UseStartup<Startup>(); 
-        }   
+            var configuration = new ConfigurationBuilder()
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                    .AddEnvironmentVariables()
+                    .AddCommandLine(args)
+                    .Build();
+
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(configuration)
+                .Enrich.FromLogContext()
+                .CreateLogger();
+
+            try
+            {
+                Log.Information("Starting web host at " + DateTime.Now.ToLongTimeString());                
+                BuildWebHost(args, configuration).Run();
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "Host terminated unexpectedly");
+                return 1;
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
+            
+        }
+        
+        public static IWebHost BuildWebHost(string[] args,
+            IConfiguration configuration) =>
+            WebHost.CreateDefaultBuilder(args)            
+            .UseConfiguration(configuration)
+            .UseSerilog()
+            .UseStartup<Startup>()            
+            .Build();
     }
 }
