@@ -59,7 +59,7 @@ namespace Owlvey.Falcon.Authority.Presentation
             }
 
             Configuration = builder.AddInMemoryCollection(configuration.AsEnumerable()).Build();
-            Environment = environment;
+            Environment = environment;            
         }
 
         
@@ -90,6 +90,10 @@ namespace Owlvey.Falcon.Authority.Presentation
             //    options.KnownProxies.Clear();
             //    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
             //});
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.All;                
+            });
 
             services.AddMvc(options =>
             {
@@ -111,13 +115,11 @@ namespace Owlvey.Falcon.Authority.Presentation
                 options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
                 options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
             });
-
             /*
              * .AddJsonOptions(
                 //options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             )
-             */
-
+            */
             AddAuthentication(services);
 
             DependencyInjectorBootStrapper.RegisterServices(services, Environment, Configuration);
@@ -127,6 +129,26 @@ namespace Owlvey.Falcon.Authority.Presentation
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            //https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/proxy-load-balancer?view=aspnetcore-3.1
+            //app.UsePathBase("/authority");
+            if (env.EnvironmentName == "k8s")
+            {
+                app.Use((context, next) =>
+                {
+                    context.Request.PathBase = new PathString("/authority");
+                    return next();
+                });
+            }
+
+            //app.UseForwardedHeaders();
+            //app.Use((context, next) =>
+            //{
+            //    if (context.Request.Path.StartsWithSegments("/authority", out var remainder))
+            //    {
+            //        context.Request.Path = remainder;
+            //    }
+            //    return next();
+            //});
 
             LogRequestHeaders(app, app.ApplicationServices.GetService<ILoggerFactory>());
             app.UseSerilogRequestLogging(options =>
@@ -192,7 +214,6 @@ namespace Owlvey.Falcon.Authority.Presentation
             {
                 options.Authority = authenticationSettings.Value.Authority;
                 options.RequireHttpsMetadata = false;
-
                 options.ApiName = authenticationSettings.Value.ApiName;
                 options.NameClaimType = authenticationSettings.Value.NameClaimType;
                 options.RoleClaimType = authenticationSettings.Value.RoleClaimType;
@@ -206,10 +227,7 @@ namespace Owlvey.Falcon.Authority.Presentation
 
         public virtual void AddMiddleware(IApplicationBuilder app)
         {
-            
-
             //app.UseForwardedHeaders();
-
             //app.UseHttpsRedirection();
         }
     }

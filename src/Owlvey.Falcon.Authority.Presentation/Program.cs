@@ -31,7 +31,8 @@ namespace Owlvey.Falcon.Authority.Presentation
 
             try
             {
-                Log.Information("Starting web host at " + DateTime.Now.ToLongTimeString());                
+                Log.Warning(string.Format("Identity Host Environment: {0}", Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")));
+                Log.Warning("Starting web host at " + DateTime.Now.ToLongTimeString());                
                 BuildWebHost(args, configuration).Run();
                 return 0;
             }
