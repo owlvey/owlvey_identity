@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: owlvey-identity-local-deployment
+  namespace: owlvey
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      key: owlvey-identity-pod
+  template:
+    metadata:
+      labels:
+        key: owlvey-identity-pod
+    spec:      
+      containers:
+      - name: owlvey-identity
+        image: localhost:48700/owlvey/identity:latest
+        imagePullPolicy: Always
+        ports:
+            - containerPort: 80
+        env:
+            - name: "ASPNETCORE_ENVIRONMENT"
+              value: "docker"
+            - name: "Authentication__User"
+              value: "admin@owlvey.com"
+            - name: "Authentication__Password"
+              value: "0wlv3y@"
+            - name: "Authentication__Email"
+              value: "admin@owlvey.com"
+            - name: "ASPNETCORE_ENVIRONMENT"
+              value: "k8s"
+    
