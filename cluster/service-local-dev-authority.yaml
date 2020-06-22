@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-identity
+  namespace: owlvey
+spec:  
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 48100 # service port
+      targetPort: 48101 # local development
+---
+apiVersion: v1
+kind: Endpoints
+apiVersion: v1
+metadata:
+ name: service-identity
+ namespace: owlvey
+subsets:
+ - addresses:
+     - ip: {{LOCALIP}}
+   ports:
+     - port: 48101

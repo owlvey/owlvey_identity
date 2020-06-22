@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-identity
+  namespace: owlvey
+spec:  
+  type: ClusterIP
+  selector:
+    key: owlvey-identity-pod
+  ports:
+    - name: site
+      protocol: TCP      
+      port: 48100
+      targetPort: 80 
