@@ -131,14 +131,14 @@ namespace Owlvey.Falcon.Authority.Presentation
         {
             //https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/proxy-load-balancer?view=aspnetcore-3.1
             //app.UsePathBase("/authority");
-            if (env.EnvironmentName == "k8s")
-            {
-                app.Use((context, next) =>
-                {
-                    context.Request.PathBase = new PathString("/authority");
-                    return next();
-                });
-            }
+            //if (env.EnvironmentName == "k8s")
+            //{
+            //    app.Use((context, next) =>
+            //    {
+            //        context.Request.PathBase = new PathString("/authority");
+            //        return next();
+            //    });
+            //}
 
             //app.UseForwardedHeaders();
             //app.Use((context, next) =>
