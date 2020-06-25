@@ -1,0 +1,15 @@
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: owlvey-ingress-identity
+  namespace: owlvey
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`identity.owlvey.com`) 
+    kind: Rule
+    services:
+    - name: service-identity
+      port: 48100
