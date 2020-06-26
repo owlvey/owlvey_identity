@@ -22,15 +22,8 @@ stages:
         action: 'Build services'        
         qualifyImageNames: true        
         additionalImageTags: 'cs-$(Build.BuildId)'
-        
-    - task: DockerCompose@0
-      inputs:
-        containerregistrytype: 'Container Registry'
-        dockerRegistryEndpoint: 'OwlveyDevopsDocker'
-        dockerComposeFile: './owlvey_identity/containers/docker-compose.yaml'
-        action: Push services
-        qualifyImageNames: true
-        additionalImageTags: 'cs-$(Build.BuildId)'
+       
+
         
         
  
