@@ -1,9 +1,9 @@
 version: '3.8'
 services:
-  service-bifrost:
+  service-identity:
         build:
           context: ./..
-          dockerfile: ./container/Dockerfile
+          dockerfile: ./containers/Dockerfile
         image: owlvey/authority
   
 
