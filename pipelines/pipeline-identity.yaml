@@ -9,7 +9,7 @@ stages:
     - checkout: self        
     - task: RegexReplace@3
       inputs:
-        InputSearchPattern: 'containers\*.yaml'
+        InputSearchPattern: 'containers\docker-compose.yaml'
         FindRegex: 'localhost:48700'
         ReplaceRegex: 'owlveydevops'
         UseUTF8: true
