@@ -21,7 +21,8 @@ stages:
         dockerComposeFile: './owlvey_identity/containers/docker-compose.yaml'
         action: 'Build services'        
         qualifyImageNames: true        
-        additionalImageTags: 'cs-$(Build.BuildId)'
+        includeLatestTag: true        
+        additionalImageTags: $(Build.BuildId)
        
 
         
