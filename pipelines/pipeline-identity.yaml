@@ -22,9 +22,17 @@ stages:
         action: 'Build services'        
         qualifyImageNames: true        
         includeLatestTag: true        
-        additionalImageTags: $(Build.BuildId)
+        additionalImageTags: 'V0.0.$(Build.BuildId)'
        
-
+    - task: DockerCompose@0
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'OwlveyDevopsDocker'
+        dockerComposeFile: './containers/docker-compose.yaml'
+        action: Push services
+        qualifyImageNames: true
+        includeLatestTag: true        
+        additionalImageTags: 'V0.0.$(Build.BuildId)'
         
         
  
