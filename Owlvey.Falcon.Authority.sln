@@ -20,6 +20,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Presentation", "1 - Pre
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Owlvey.Falcon.Authority.Presentation", "src\Owlvey.Falcon.Authority.Presentation\Owlvey.Falcon.Authority.Presentation.csproj", "{AA97B31B-6918-4DBE-A4D1-9B18B5D71FC2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cluster", "cluster", "{F7C71973-582A-437F-94F3-9C0EBEC7184F}"
+	ProjectSection(SolutionItems) = preProject
+		cluster\debug-authority.yaml = cluster\debug-authority.yaml
+		cluster\deploy-identity.yaml = cluster\deploy-identity.yaml
+		cluster\service-authority.yaml = cluster\service-authority.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
