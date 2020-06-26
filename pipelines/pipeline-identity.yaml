@@ -12,19 +12,20 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'        
     steps:
-    - checkout: self    
-    - checkout: identity    
+    - checkout: self        
     - task: DockerCompose@0
+      displayName: Build 
       inputs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: 'OwlveyDevopsDocker'
-        dockerComposeFile: './owlvey_identity/containers/docker-compose.yaml'
+        dockerComposeFile: './containers/docker-compose.yaml'
         action: 'Build services'        
         qualifyImageNames: true        
         includeLatestTag: true        
         additionalImageTags: 'V0.0.$(Build.BuildId)'
        
     - task: DockerCompose@0
+      displayName: Publish
       inputs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: 'OwlveyDevopsDocker'
