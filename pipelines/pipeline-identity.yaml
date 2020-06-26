@@ -17,7 +17,7 @@ stages:
     - task: DockerCompose@0
       inputs:
         containerregistrytype: 'Container Registry'
-        dockerRegistryEndpoint: 'Owlvey Docker Connection'
+        dockerRegistryEndpoint: 'OwlveyDevopsDocker'
         dockerComposeFile: './owlvey_identity/containers/docker-compose.yaml'
         action: 'Build services'        
         qualifyImageNames: true        
@@ -26,7 +26,7 @@ stages:
     - task: DockerCompose@0
       inputs:
         containerregistrytype: 'Container Registry'
-        dockerRegistryEndpoint: 'Owlvey Docker Connection'
+        dockerRegistryEndpoint: 'OwlveyDevopsDocker'
         dockerComposeFile: './owlvey_identity/containers/docker-compose.yaml'
         action: Push services
         qualifyImageNames: true
