@@ -6,6 +6,6 @@ docker-compose build
 
 popd
 
-docker tag owlvey/identity localhost:48700/owlvey/identity
-docker push localhost:48700/owlvey/identity
+docker tag owlvey/authority localhost:48700/owlvey/authority
+docker push localhost:48700/owlvey/authority
 

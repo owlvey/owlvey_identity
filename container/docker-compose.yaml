@@ -4,6 +4,6 @@ services:
         build:
           context: ./..
           dockerfile: ./container/Dockerfile
-        image: owlvey/identity
+        image: owlvey/authority
   
 

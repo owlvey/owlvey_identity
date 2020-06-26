@@ -15,7 +15,7 @@ spec:
     spec:      
       containers:
       - name: owlvey-identity
-        image: owlvey/identity:latest
+        image: owlvey/authority:latest
         imagePullPolicy: Always
         ports:
             - containerPort: 80
