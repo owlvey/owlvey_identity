@@ -1,18 +1,19 @@
 name: $(Date:yyyyMMdd)$(Rev:.r)
-resources:
-  repositories:
-  - repository: identity # The name used to reference this repository in the checkout step
-    type: github
-    endpoint: owlvey
-    name: owlvey/owlvey_identity
 stages:
-- stage: commitStage   
+- stage: commit
   jobs:    
   - job:    
     pool:
       vmImage: 'ubuntu-latest'        
     steps:
     - checkout: self        
+    - task: RegexReplace@3
+      inputs:
+        InputSearchPattern: 'containers\*.yaml'
+        FindRegex: 'localhost:48700'
+        ReplaceRegex: 'owlveydevops'
+        UseUTF8: true
+        UseRAW: true
     - task: DockerCompose@0
       displayName: Build 
       inputs:
@@ -35,5 +36,6 @@ stages:
         includeLatestTag: true        
         additionalImageTags: 'V0.0.$(Build.BuildId)'
         
+    
         
  
