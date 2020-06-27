@@ -15,8 +15,8 @@ stages:
         dockerRegistryEndpoint: 'OwlveyDevopsDocker'
         dockerComposeFile: './containers/docker-compose.yaml'
         action: 'Build services'        
-        qualifyImageNames: false
-        additionalImageTags: 'owlveydevops/authority'
+        qualifyImageNames: true                
+        additionalImageTags: 'V0.0.$(Build.BuildId)'
        
     - task: DockerCompose@0
       displayName: Publish
@@ -25,9 +25,9 @@ stages:
         dockerRegistryEndpoint: 'OwlveyDevopsDocker'
         dockerComposeFile: './containers/docker-compose.yaml'
         action: Push services
-        qualifyImageNames: false
-        includeLatestTag: false        
-        additionalImageTags: 'V0.0.$(Build.BuildId)'
+        qualifyImageNames: true
+        includeLatestTag: true        
+        additionalImageTags: 'commit-stage'
         
     
         
