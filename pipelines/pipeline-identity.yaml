@@ -14,6 +14,7 @@ stages:
         targetType: 'inline'
         script: |
           sed -i -e 's/registry/owlveydevops/g' ./containers/docker-compose.yaml
+          cat ./containers/docker-compose.yaml
     - task: DockerCompose@0
       displayName: Build 
       inputs:
@@ -33,7 +34,7 @@ stages:
         action: Push services
         qualifyImageNames: true
         includeLatestTag: true        
-        additionalImageTags: 'commit-stage'
+        additionalImageTags: 'V0.0.$(Build.BuildId)'
         
     
         
