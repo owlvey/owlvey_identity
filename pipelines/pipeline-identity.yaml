@@ -1,4 +1,9 @@
 name: $(Build.BuildId)_$(Date:yyyyMMdd)_$(Rev:.r)
+trigger:
+  branches:
+    include:
+    - develop
+    
 stages:
 - stage: commit
   jobs:    
