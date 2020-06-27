@@ -27,7 +27,7 @@ stages:
         action: Push services
         qualifyImageNames: true
         includeLatestTag: true        
-        additionalImageTags: 'owlveydevops/authority'
+        additionalImageTags: 'V0.0.$(Build.BuildId)'
         
     
         
