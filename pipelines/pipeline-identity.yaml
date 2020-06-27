@@ -6,14 +6,7 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'        
     steps:
-    - checkout: self        
-    - task: RegexReplace@3
-      inputs:
-        InputSearchPattern: 'containers\docker-compose.yaml'
-        FindRegex: 'localhost:48700'
-        ReplaceRegex: 'owlveydevops'
-        UseUTF8: true
-        UseRAW: true
+    - checkout: self            
     
     - task: DockerCompose@0
       displayName: Build 
