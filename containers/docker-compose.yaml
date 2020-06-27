@@ -4,6 +4,6 @@ services:
         build:
           context: ./..
           dockerfile: ./containers/Dockerfile
-        image: authority
+        image: registry/authority
   
 

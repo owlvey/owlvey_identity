@@ -7,7 +7,13 @@ stages:
       vmImage: 'ubuntu-latest'        
     steps:
     - checkout: self            
-    
+    - task: Bash@3
+      displayName: replace commmit artifactory
+      inputs:
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
+        targetType: 'inline'
+        script: |
+          sed -i -e 's/registry/owlveydevops/g' ./containers/docker-compose.yaml
     - task: DockerCompose@0
       displayName: Build 
       inputs:
