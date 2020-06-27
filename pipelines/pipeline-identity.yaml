@@ -1,9 +1,4 @@
 name: $(Build.BuildId)_$(Date:yyyyMMdd)_$(Rev:.r)
-trigger:
-  branches:
-    include:
-    - develop
-    
 stages:
 - stage: commit
   jobs:    
@@ -11,7 +6,7 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'        
     steps:
-    - checkout: self            
+    - checkout: self                  
     - task: Bash@3
       displayName: replace commmit artifactory
       inputs:
