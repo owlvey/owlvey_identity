@@ -16,7 +16,7 @@ stages:
         dockerComposeFile: './containers/docker-compose.yaml'
         action: 'Build services'        
         qualifyImageNames: true                
-        additionalImageTags: 'V0.0.$(Build.BuildId)'
+        additionalImageTags: 'owlveydevops/authority'
        
     - task: DockerCompose@0
       displayName: Publish
