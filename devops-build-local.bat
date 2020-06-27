@@ -1,6 +1,6 @@
 dotnet clean ./Owlvey.Falcon.Authority.sln -v:q
 
-pushd "./container"
+pushd "./containers"
 
 docker-compose build
 

@@ -4,6 +4,6 @@ services:
         build:
           context: ./..
           dockerfile: ./containers/Dockerfile
-        image: localhost:48700/authority
+        image: authority
   
 

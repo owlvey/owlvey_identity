@@ -14,6 +14,7 @@ stages:
         ReplaceRegex: 'owlveydevops'
         UseUTF8: true
         UseRAW: true
+    
     - task: DockerCompose@0
       displayName: Build 
       inputs:
@@ -21,8 +22,7 @@ stages:
         dockerRegistryEndpoint: 'OwlveyDevopsDocker'
         dockerComposeFile: './containers/docker-compose.yaml'
         action: 'Build services'        
-        qualifyImageNames: true        
-        includeLatestTag: true        
+        qualifyImageNames: true                
         additionalImageTags: 'V0.0.$(Build.BuildId)'
        
     - task: DockerCompose@0
@@ -34,7 +34,7 @@ stages:
         action: Push services
         qualifyImageNames: true
         includeLatestTag: true        
-        additionalImageTags: 'V0.0.$(Build.BuildId)'
+        additionalImageTags: 'owlveydevops/authority'
         
     
         
