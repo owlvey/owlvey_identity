@@ -1,4 +1,4 @@
-name: $(Date:yyyyMMdd)$(Rev:.r)
+name: $(Build.BuildId)_$(Date:yyyyMMdd)_$(Rev:.r)
 stages:
 - stage: commit
   jobs:    
