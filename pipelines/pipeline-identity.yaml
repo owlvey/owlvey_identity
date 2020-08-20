@@ -1,36 +1,41 @@
-name: $(Date:yyyyMMdd)$(Rev:.r)
-resources:
-  repositories:
-  - repository: identity # The name used to reference this repository in the checkout step
-    type: github
-    endpoint: owlvey
-    name: owlvey/owlvey_identity
+name: $(Build.BuildId)_$(Date:yyyyMMdd)_$(Rev:.r)
 stages:
-- stage: commitStage   
+- stage: commit
   jobs:    
   - job:    
     pool:
       vmImage: 'ubuntu-latest'        
     steps:
-    - checkout: self    
-    - checkout: identity    
+    - checkout: self                  
+    - task: Bash@3
+      displayName: replace commmit artifactory
+      inputs:
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
+        targetType: 'inline'
+        script: |
+          sed -i -e 's/registry/owlveydevcommit/g' ./containers/docker-compose.yaml
+          cat ./containers/docker-compose.yaml
     - task: DockerCompose@0
+      displayName: Build 
       inputs:
         containerregistrytype: 'Container Registry'
-        dockerRegistryEndpoint: 'Owlvey Docker Connection'
-        dockerComposeFile: './owlvey_identity/containers/docker-compose.yaml'
+        dockerRegistryEndpoint: 'OwlveyDevopsDocker'
+        dockerComposeFile: './containers/docker-compose.yaml'
         action: 'Build services'        
-        qualifyImageNames: true        
-        additionalImageTags: 'cs-$(Build.BuildId)'
-        
+        qualifyImageNames: true                
+        additionalImageTags: 'V0.0.$(Build.BuildId)'
+       
     - task: DockerCompose@0
+      displayName: Publish
       inputs:
         containerregistrytype: 'Container Registry'
-        dockerRegistryEndpoint: 'Owlvey Docker Connection'
-        dockerComposeFile: './owlvey_identity/containers/docker-compose.yaml'
+        dockerRegistryEndpoint: 'OwlveyDevopsDocker'
+        dockerComposeFile: './containers/docker-compose.yaml'
         action: Push services
         qualifyImageNames: true
-        additionalImageTags: 'cs-$(Build.BuildId)'
+        includeLatestTag: true        
+        additionalImageTags: 'V0.0.$(Build.BuildId)'
         
+    
         
  
